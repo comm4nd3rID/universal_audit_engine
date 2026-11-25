@@ -1,0 +1,9 @@
+
+{
+  "DNS_SERVER_1": "192.0.2.53",
+  "DNS_SERVER_2": "192.0.2.54",
+  "WAN_PORT": "port1",
+  "TIMEZONE": "Asia/Tehran",
+  "NTP_SERVER_1": "192.0.2.123",
+  "NTP_SERVER_2": "192.0.2.124"
+}

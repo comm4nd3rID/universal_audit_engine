@@ -1,0 +1,18 @@
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Universal Audit Engine Plugin Manifest",
+  "type": "object",
+  "required": ["id", "version", "kind", "platform", "entrypoint"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "version": {"type": "string"},
+    "kind": {"enum": ["parser", "adapter", "handler"]},
+    "platform": {"type": "string"},
+    "requires": {"type": "array", "items": {"type": "string"}},
+    "provides": {"type": "array", "items": {"type": "string"}},
+    "compatibility": {"type": "object"},
+    "entrypoint": {"type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_.]*:[A-Za-z_][A-Za-z0-9_]*$"}
+  },
+  "additionalProperties": false
+}

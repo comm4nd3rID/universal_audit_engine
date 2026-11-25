@@ -1,0 +1,45 @@
+{
+  "CIS_FortiGate_7.4.x_v1.0.1_L1.audit": {
+    "checks": 83,
+    "types": {
+      "FORTIGATE_CONTEXT_REGEX": 81,
+      "FORTIGATE_BANNER_CHECK": 2
+    }
+  },
+  "CIS_FortiGate_7.4.x_v1.0.1_L2.audit": {
+    "checks": 35,
+    "types": {
+      "FORTIGATE_CONTEXT_REGEX": 34,
+      "FORTIGATE_COMMAND": 1
+    }
+  },
+  "CIS_VMware_ESXi_9.0_v1.0.0_L1_Unix.audit": {
+    "checks": 52,
+    "types": {
+      "UNIX_COMMAND": 37,
+      "UNIX_FILE_CONTENT": 13,
+      "UNIX_BANNER": 2
+    }
+  },
+  "CIS_VMware_ESXi_9.0_v1.0.0_L2_Unix.audit": {
+    "checks": 4,
+    "types": {
+      "UNIX_COMMAND": 3,
+      "UNIX_FILE_CONTENT": 1
+    }
+  },
+  "CIS_Cisco_IOS_XE_17.x_v2.2.1_L1.audit": {
+    "checks": 111,
+    "types": {
+      "CISCO_CONFIG_CHECK": 95,
+      "CISCO_CONFIG_CHECK_NOT": 13,
+      "CISCO_BANNER_CHECK": 3
+    }
+  },
+  "CIS_Cisco_IOS_XE_17.x_v2.2.1_L2.audit": {
+    "checks": 26,
+    "types": {
+      "CISCO_CONFIG_CHECK": 26
+    }
+  }
+}

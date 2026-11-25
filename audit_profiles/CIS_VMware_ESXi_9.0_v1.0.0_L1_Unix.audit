@@ -1,0 +1,1250 @@
+#TRUSTED 5864ea1f1480fdf45d2f4d027e1b4abff8948140f8f87a97e86772ba5f45e79e63d28e2b8bbec7942d877f9e3712636e7d78f9906fdc90830eb9f2f9143753dd1f7938ad2e5cfbc2138f2ea1b22e523dd5a67a6e9d0882f566510097f3cffc06fccfdaa91819f0e3757f05fa83a6b88ab81a508b42d2b2df650ec9ba1bfa370eeb2079bf51d6bbb2f2a6e2037ecb79dfcaffc05ac9d73da9745263e8c3463f56c4a644499fabe95eee099fea44be2fc3bf4d9fc90ab96be8a20c736c49ea4c05564e2002b9df50428cf7adb480cb115a477aebccf414d92520107577c803aea0d4e4fb8268bda633330db704ed97ac4f8dc02213b173519e33ed1e51acda11033211fbf7af63baf551f5186ba7a2ab706e2fa8b095b5b23d9c80d766c1bf460b6991a6e75ff0dc7f95a0bee7f9aa98551bcdc50c15d223f575747646da481ce596c54c35e7ff78cb9d7efeabc919e4d854130c71b7e6b702cbd4109507ce4f1fccdf90701b199377e3330b2cc20d7cb4937c51682282b471f06943eb8332d1c9ca516f312786835535b7a03a915e3448fc57b333f5852bcb8d6a109c9875cd97b7e96fde63d4654262d58c0f2104fb5d3027c8c620a7fcea970cae2657788262d3d56de757575609f8f63892dc26333f08f64bd52346cb1483ad075442854bb5272d18a1d55181a93fd427b3d2199e0b93baceaf5f224a2c3c72fff015ae034d
+#TRUST-RSA-SHA256 46314fb2cc542cd9585ebb64d9ce01d82ddc70f351af8e676bd6777de5238c3588ba91159e1fffabec707182bddcda234833db4786d983e7d0410f78a25bf4679a308933d734826ffb1dd716dfd023e4324a92b47b972db988a2c40417c850b1698ca7b53b527afb55c5bfb2a413cd586014dacd497f1b03d8fa95ef73f4080bc250b8864942a7722db08c74e540d0a3c4fa19ba2af89b46a264b0868f53ae57d5d8c0262afc3ff04a8a5666698477939d08466976b21db1964ddd02e16ba5b603361c346f635bf33d6cfaf83786a62ff22bbe87be77b7e556ac9b92bc6ba0ab855f4618522bf47472e3a3a676b6085c9f0cdb4420f97fdedb77ab6e1c8a216d680e735dd56f6c398f9920617a0d7456feeccaa1ae4fcb1682ba34e2bfde45cebb48e63fc40ec4b35612dc2d221b78f791dfaec27ca66b12719a515b11035fa4d030eb6bcdcb6786d66567cccad7b4831c028ec6d1ef6c2b2913754ddb471aee87ab43b68a9ed226375af2d1b4da36282695b05e75311eeb86b049997112042536f6b16ae27d4b39f072784c8c71130be101a3e969d8ee05bdfdd5483223c889a36e62b8436a65daf933566c7049f4160b9e02df348834842f6599e01a5e14ca0f8e506ce300e5d390800aba9fd584c8f9406885b31b48da59342fde5fdc6534557e2d43b3b23e34b3a783880669dfbc3e799b882bc1979ae5a17ea60bc0ade4
+#
+# This script is Copyright (C) 2004-2026 and is owned by Tenable, Inc. or an Affiliate thereof.
+#
+# This script is released under the Tenable Subscription License and
+# may not be used from within scripts released under another license
+# without authorization from Tenable, Inc.
+#
+# See the following licenses for details:
+#
+# http://static.tenable.com/prod_docs/Nessus_6_SLA_and_Subscription_Agreement.pdf
+#
+# @PROFESSIONALFEED@
+# $Revision: 1.0 $
+# $Date: 2026/10/14 $
+#
+# description : This .audit is designed against the CIS VMware ESXi 9.0 Benchmark v1.0.0
+#
+#<ui_metadata>
+#<display_name>CIS VMware ESXi 9.0 v1.0.0 L1 Unix</display_name>
+#<spec>
+#  <type>CIS</type>
+#  <name>VMware ESXi 9.0</name>
+#  <profile>L1</profile>
+#  <version>1.0.0</version>
+#  <link>https://workbench.cisecurity.org/benchmarks/28124</link>
+#</spec>
+#<labels>agent,cis,vmware_esxi_unix</labels>
+#<benchmark_refs>800-53,800-53r5,CSCv7,CSCv8,LEVEL</benchmark_refs>
+#<variables>
+#  <variable>
+#    <name>BANNER_TEXT</name>
+#    <default>All activities performed on this system will be monitored.</default>
+#    <description>Banner Text</description>
+#    <info>This is the text for the warning a user receives when logging onto the system.</info>
+#    <value_type>STRING</value_type>
+#  </variable>
+#  <variable>
+#    <name>SSH_BANNER_FILE</name>
+#    <default>/etc/issue</default>
+#    <description>SSH Banner File Path</description>
+#    <info>The path to the SSH banner file as found in sshd_config.</info>
+#    <value_type>UNIX_FILE_PATH</value_type>
+#  </variable>
+#  <variable>
+#    <name>AUDIT_LOG_CAPACITY</name>
+#    <default>100</default>
+#    <description>Audit log record capacity</description>
+#    <info>Number of Audit Log Records to retain.</info>
+#    <value_type>STRING</value_type>
+#  </variable>
+#  <variable>
+#    <name>SSH_CLIENT_ALIVE_COUNT_MAX</name>
+#    <default>3</default>
+#    <description>SSH client alive count max</description>
+#    <info>Unanswered keepalives before sshd disconnects an idle session.</info>
+#    <value_type>INTEGER</value_type>
+#  </variable>
+#  <variable>
+#    <name>SSH_CLIENT_ALIVE_INTERVAL</name>
+#    <default>200</default>
+#    <description>SSH client alive interval</description>
+#    <info>Seconds between sshd keepalives to an idle session.</info>
+#    <value_type>INTEGER</value_type>
+#  </variable>
+#</variables>
+#</ui_metadata>
+
+<check_type:"Unix">
+
+<if>
+  <condition type:"AND">
+    <custom_item>
+      type        : CMD_EXEC
+      description : "VMkernel found"
+      cmd         : "uname -a"
+      expect      : "VMkernel"
+    </custom_item>
+  </condition>
+
+  <then>
+    <report type:"PASSED">
+      description : "CIS_VMware_ESXi_9.0_v1.0.0_L1_Unix.audit from CIS VMware ESXi 9.0 v1.0.0"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      show_output : YES
+    </report>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "1.2 Host hardware must enable UEFI Secure Boot"
+      info        : "UEFI Secure Boot is a security feature of the Unified Extensible Firmware Interface (UEFI) specification. Its primary purpose is to ensure that only signed and trusted boot loaders and operating system kernels are allowed to execute during the system startup. This helps protect systems from malware and unauthorized software that might try to run before the operating system loads. By verifying the digital signatures of bootable applications and drivers, Secure Boot prevents potentially harmful code from compromising the boot process.
+
+Enabling UEFI Secure Boot on the ESXi host hardware helps prevent malware and untrusted configurations."
+      solution    : "You must enable the physical server's UEFI Secure Boot in the server BIOS/UEFI.
+
+ -
+
+Put the non-compliant Host into maintenance mode:
+vim-cmd hostsvc/maintenance_mode_enter
+
+ -
+
+Verify Secure Boot compatibility:
+/usr/lib/vmware/secureboot/bin/secureBoot.py -c
+
+ -
+
+Restart the ESXi host with the reboot command.
+
+ -
+
+on the ESXI physical host BIOS/UEFI configuration, ensure that \"boot mode\" is UEFI
+
+ -
+
+Under Boot or Security menus, look for \"Secure Boot\" and set it to \"Enabled\".
+
+ -
+
+Save all modified firmware changes and reboot the ESXi host.
+
+ -
+
+Verify results.
+
+Impact:
+
+Enabling this after installation may render the host unbootable. Refer to the vSphere documentation for more information about enabling Secure Boot."
+      reference   : "800-171|3.4.2,800-171r3|03.04.02a.,800-53|CM-6b.,800-53r5|SR-11,CN-L3|8.1.10.6(d),CSCv7|5.4,CSCv7|18.4,CSCv8|16.5,CSF|PR.IP-1,CSF2.0|DE.CM-09,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ISO-27001-2022|A.8.9,ITSG-33|CM-6b.,LEVEL|1M,NESA|T3.2.1,SWIFT-CSCv1|2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/usr/lib/vmware/secureboot/bin/secureBoot.py -s"
+      expect      : "^[\\s]*Enabled[\\s]*$"
+    </custom_item>
+
+    <if>
+      <condition auto:"WARNING" type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "Time synchronization is enabled"
+          cmd         : "/bin/esxcli system ntp get"
+          expect      : "^[\\s]*Enabled:[\\s]+true$"
+        </custom_item>
+
+        <custom_item>
+          type        : CMD_EXEC
+          description : "Time synchronization source is reliable and approved"
+          cmd         : "/bin/esxcli system ntp get"
+          expect      : "^Manual Review Required$"
+          severity    : MEDIUM
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "1.6 Host integrated hardware management controller must enable time synchronization"
+          info        : "Cryptography, audit logging, cluster operations, and incident response/forensics depend deeply on synchronized time. This recommendation extends to all devices in infrastructure. The recommendation for NTP is to have at least four sources.
+
+Ensuring the host integrated hardware management controller enables time synchronization provides a consistent and accurate timestamp for logs and events, which is crucial for auditing, troubleshooting, and identifying security incidents.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+          solution    : "- Enable NTP or the vendor-supported automatic time synchronization service.
+ - Enter the organization's approved NTP servers.
+ - Configure multiple authoritative NTP sources where supported.
+ - Configure the appropriate time zone.
+ - Save/apply the configuration.
+
+Impact:
+
+No impact noted."
+          reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.4,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "2.1 Host must run software that has not reached End of General Support status"
+      info        : "The \"End of General Support\" (EOGS) status indicates that the software version has exceeded its primary support lifecycle, during which VMware provides new security patches, bug fixes, and technical assistance. When a product reaches this status, VMware no longer releases security updates for that version for customers outside of an extended support contract. Thus, systems still running software past its EOGS are potentially exposed to unpatched vulnerabilities and other security risks.
+
+Running software beyond its EOGS can compromise the integrity, availability, and confidentiality of virtual environments. Keeping VMware ESXi software versions within the support period ensures that organizations have access to the latest security patches, critical updates, and vendor support.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "To remediate this recommendation, upgrade the host to an ESXi release/build that is still within Broadcom General Support. Use vSphere Lifecycle Manager or the vendor-supported image, validate hardware compatibility first, place the host in maintenance mode, remediate/upgrade, reboot, and verify the new build.
+
+Impact:
+
+Failing to update and maintain software versions within the support period can lead to potential security breaches, data losses, and reduced operational efficiency, as the software might become incompatible with newer technologies and lack support for emerging security threats."
+      reference   : "800-171r3|03.16.02,800-53|SA-22,800-53r5|SA-22,CSCv7|2.2,CSCv8|2.2,CSF2.0|ID.AM-08,GDPR|32.1.b,HIPAA|164.306(a)(1),LEVEL|1M"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system version get"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <if>
+      <condition auto:"WARNING" type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "check that the hardware random number generator is not disabled"
+          cmd         : "/bin/esxcli system settings kernel list -o disableHwrng"
+          expect      : "^[\\s]*disableHwrng[\\s]+Bool[\\s]+FALSE.*$"
+        </custom_item>
+
+        <custom_item>
+          type        : CMD_EXEC
+          description : "check that the hardware supports the preferred FIPS entropy path (manual review)"
+          cmd         : "/bin/esxcli system settings kernel list -o entropySources"
+          expect      : "^Manual Review Required$"
+          severity    : MEDIUM
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "2.11 Host must use sufficient entropy for cryptographic operations"
+          info        : "Starting with vSphere 8.0, ESXi has enhanced its entropy implementation to align with FIPS 140-3 and EAL4 certifications, ensuring a robust foundation for cryptographic operations. Kernel boot options dictate the activation of entropy sources on an ESXi host. The parameter governing this behavior is disableHwrng = FALSE and entropySources = 0.
+
+Employing adequate entropy is crucial for ensuring the strength of cryptographic operations.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+          solution    : "-
+
+Set the kernel option with:
+
+esxcli system settings kernel set -s disableHwrng -v FALSE
+
+ -
+
+Reboot if required by the host/build and verify the configured and runtime values are FALSE.
+
+Impact:
+
+There is no functional impact noted."
+          reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+
+    <if>
+      <condition auto:"WARNING" type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "Installed image profile and patch level"
+          cmd         : "/bin/esxcli software profile get"
+          expect      : "^Manual Review Required$"
+          severity    : MEDIUM
+        </custom_item>
+
+        <custom_item>
+          type        : CMD_EXEC
+          description : "check installed VIBs for unauthorized or unsigned packages (manual review)"
+          cmd         : "/bin/esxcli software vib list"
+          expect      : "^Manual Review Required$"
+          severity    : MEDIUM
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "2.2 Host must have all software updates installed"
+          info        : "Applying updates in a timely manner according to the severity of issues contributes greatly to the resilience of an environment. When applying updates, it is recommended to update vCenter Server first, if an update is available, and then proceed with updating ESXi. This sequence ensures that the management layer is updated before updating the ESXi hosts.
+
+VMware publishes advisories on security vulnerabilities; for proactive notifications please subscribe to the mailing list at https://www.vmware.com/security/advisories.html
+
+Issues in software that impact confidentiality, integrity, and/or availability can only be removed through patching to a version that resolves the issue. Threat actors exploit known vulnerabilities when attempting to gain unauthorized access or elevate privileges on an ESXi host.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+          solution    : "Use VMware Lifecycle Manager to update and upgrade hosts when ESXi is managed through VMware vCenter. For standalone hosts use esxcli or API-driven methods for applying updates.
+
+Employ a process to keep ESXi hosts up to date with patches in accordance with industry standards and internal guidelines. Leverage the VMware Lifecycle Manager to test and apply patches as they become available.
+
+Impact:
+
+ESXi servers must be in Maintenance Mode to apply patches. This implies all VMs must be moved or powered off on the ESXi server, so the patching process may necessitate brief outages. ESXi hosts that are compatible with Quick Boot may be able to greatly minimize the host restart time.
+
+VMware vSphere Update releases add and change system functionality, whereas Patch releases only resolve issues."
+          reference   : "800-171|3.11.2,800-171|3.11.3,800-171|3.14.1,800-171r3|03.11.02,800-171r3|03.14.01,800-53|RA-5,800-53|SI-2,800-53|SI-2(2),800-53r5|RA-5,800-53r5|RA-7,800-53r5|SI-2,800-53r5|SI-2(2),CN-L3|8.1.4.4(e),CN-L3|8.1.10.5(a),CN-L3|8.1.10.5(b),CN-L3|8.5.4.1(b),CN-L3|8.5.4.1(d),CN-L3|8.5.4.1(e),CSCv7|3.4,CSCv8|7.3,CSF|DE.CM-8,CSF|DE.DP-4,CSF|DE.DP-5,CSF|ID.RA-1,CSF|PR.IP-12,CSF|RS.CO-3,CSF|RS.MI-3,CSF2.0|GV.SC-10,CSF2.0|ID.IM-01,CSF2.0|ID.IM-02,CSF2.0|ID.IM-03,CSF2.0|ID.RA-01,CSF2.0|ID.RA-08,CSF2.0|PR.PS-02,GDPR|32.1.b,GDPR|32.1.d,HIPAA|164.306(a)(1),ISO-27001-2022|A.6.8,ISO-27001-2022|A.8.8,ISO-27001-2022|A.8.32,ISO/IEC-27001|A.12.6.1,ITSG-33|RA-5,ITSG-33|SI-2,ITSG-33|SI-2(2),LEVEL|1M,NESA|M1.2.2,NESA|M5.4.1,NESA|T7.6.2,NESA|T7.7.1,NIAv2|PR9,PCI-DSSv3.2.1|6.1,PCI-DSSv3.2.1|6.2,PCI-DSSv4.0|6.3,PCI-DSSv4.0|6.3.1,PCI-DSSv4.0|6.3.3,QCSC-v1|3.2,QCSC-v1|5.2.1,QCSC-v1|5.2.2,QCSC-v1|5.2.3,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,SWIFT-CSCv1|2.2,SWIFT-CSCv1|2.7"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+
+    <if>
+      <condition type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "Platform has Secure Boot enabled at the hardware level"
+          cmd         : "/usr/lib/vmware/secureboot/bin/secureBoot.py -s"
+          expect      : "^Enabled$"
+        </custom_item>
+      </condition>
+
+      <then>
+        <custom_item>
+          type        : CMD_EXEC
+          description : "2.3 Host must enable Secure Boot enforcement"
+          info        : "Enabling Secure Boot enforcement ensures that the host only loads UEFI drivers and applications with valid digital signatures, as part of the UEFI firmware standard. It requires support from the server's BIOS and hypervisor boot loader, and mandates that all ESXi kernel modules, drivers, and VIBs be signed by VMware or a trusted partner subordinate.
+
+Organizations should enable Secure Boot enforcement to enhance the security of their virtual environments. Requiring valid digital signatures for UEFI drivers and apps mitigates the risk of offline attacks, where an attacker could transfer the ESXi install drive to a non-Secure Boot host and boot it without detection. This control establishes a trusted boot process, reducing the risk of unauthorized access and maintaining the integrity of the ESXi host."
+          solution    : "- Enable UEFI Secure Boot and TPM 2.0 on the hardware.
+ - Configure ESXi secure configuration/Secure Boot enforcement using the supported vSphere/ESXCLI procedure for the installed ESXi 8 build.
+ - Reboot if required and verify both
+secureBoot.py -s
+and
+esxcli system settings encryption get
+
+Impact:
+
+Failing to enable Secure Boot enforcement exposes the ESXi host to potential security breaches. Without this control, an attacker could compromise the ESXi host by booting it on a non-Secure Boot host, bypassing ESXi's protections. This could lead to unauthorized access, data breaches, and compromise of the virtual environment's integrity. Enabling Secure Boot enforcement is crucial for maintaining a secure and trusted ESXi host, mitigating potential negative impacts, and safeguarding the virtual infrastructure."
+          reference   : "800-171|3.4.1,800-171|3.4.2,800-171|3.4.6,800-171|3.4.7,800-171|3.13.1,800-171|3.13.2,800-171r3|03.04.01,800-171r3|03.04.02,800-171r3|03.04.06,800-171r3|03.16.01,800-53|CM-2,800-53|CM-6,800-53|CM-7,800-53|CM-7(1),800-53|CM-9,800-53|SA-3,800-53|SA-8,800-53|SA-10,800-53r5|CM-1,800-53r5|CM-2,800-53r5|CM-6,800-53r5|CM-7,800-53r5|CM-7(1),800-53r5|CM-9,800-53r5|SA-3,800-53r5|SA-8,800-53r5|SA-10,CSCv7|5.1,CSCv8|4.1,CSF|DE.AE-1,CSF|PR.DS-7,CSF|PR.IP-1,CSF|PR.IP-2,CSF|PR.IP-3,CSF|PR.PT-3,CSF2.0|DE.CM-09,CSF2.0|ID.AM-08,CSF2.0|ID.IM-01,CSF2.0|ID.IM-02,CSF2.0|ID.IM-03,CSF2.0|ID.RA-09,CSF2.0|PR.DS-10,CSF2.0|PR.IR-03,CSF2.0|PR.PS-01,CSF2.0|PR.PS-06,GDPR|32.1.b,HIPAA|164.306(a)(1),ISO-27001-2022|A.5.2,ISO-27001-2022|A.5.8,ISO-27001-2022|A.8.9,ISO-27001-2022|A.8.25,ISO-27001-2022|A.8.26,ISO-27001-2022|A.8.27,ISO-27001-2022|A.8.28,ISO-27001-2022|A.8.30,ISO-27001-2022|A.8.31,ISO-27001-2022|A.8.32,ITSG-33|CM-2,ITSG-33|CM-6,ITSG-33|CM-7,ITSG-33|CM-7(1),ITSG-33|CM-9,ITSG-33|SA-3,ITSG-33|SA-8,ITSG-33|SA-8a.,ITSG-33|SA-10,LEVEL|1M,NESA|T1.2.1,NESA|T1.2.2,NESA|T3.2.5,NESA|T3.4.1,NESA|T4.5.3,NESA|T4.5.4,NESA|T7.2.1,NESA|T7.5.1,NESA|T7.5.3,NESA|T7.6.1,NESA|T7.6.2,NESA|T7.6.3,NESA|T7.6.5,NIAv2|SS3,NIAv2|SS15a,NIAv2|SS16,NIAv2|VL2,PCI-DSSv3.2.1|2.2.2,QCSC-v1|3.2,QCSC-v1|4.2,QCSC-v1|5.2.1,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          cmd         : "/bin/esxcli system settings encryption get"
+          expect      : "^[\\s]*Require Secure Boot:[\\s]+true$"
+        </custom_item>
+      </then>
+
+      <else>
+        <report type:"WARNING">
+          description : "2.3 Host must enable Secure Boot enforcement"
+          info        : "Enabling Secure Boot enforcement ensures that the host only loads UEFI drivers and applications with valid digital signatures, as part of the UEFI firmware standard. It requires support from the server's BIOS and hypervisor boot loader, and mandates that all ESXi kernel modules, drivers, and VIBs be signed by VMware or a trusted partner subordinate.
+
+Organizations should enable Secure Boot enforcement to enhance the security of their virtual environments. Requiring valid digital signatures for UEFI drivers and apps mitigates the risk of offline attacks, where an attacker could transfer the ESXi install drive to a non-Secure Boot host and boot it without detection. This control establishes a trusted boot process, reducing the risk of unauthorized access and maintaining the integrity of the ESXi host.
+
+NOTE: Nessus has not performed this check. Please review the benchmark to ensure target compliance."
+          solution    : "- Enable UEFI Secure Boot and TPM 2.0 on the hardware.
+ - Configure ESXi secure configuration/Secure Boot enforcement using the supported vSphere/ESXCLI procedure for the installed ESXi 8 build.
+ - Reboot if required and verify both
+secureBoot.py -s
+and
+esxcli system settings encryption get
+
+Impact:
+
+Failing to enable Secure Boot enforcement exposes the ESXi host to potential security breaches. Without this control, an attacker could compromise the ESXi host by booting it on a non-Secure Boot host, bypassing ESXi's protections. This could lead to unauthorized access, data breaches, and compromise of the virtual environment's integrity. Enabling Secure Boot enforcement is crucial for maintaining a secure and trusted ESXi host, mitigating potential negative impacts, and safeguarding the virtual infrastructure."
+          reference   : "800-171|3.4.1,800-171|3.4.2,800-171|3.4.6,800-171|3.4.7,800-171|3.13.1,800-171|3.13.2,800-171r3|03.04.01,800-171r3|03.04.02,800-171r3|03.04.06,800-171r3|03.16.01,800-53|CM-2,800-53|CM-6,800-53|CM-7,800-53|CM-7(1),800-53|CM-9,800-53|SA-3,800-53|SA-8,800-53|SA-10,800-53r5|CM-1,800-53r5|CM-2,800-53r5|CM-6,800-53r5|CM-7,800-53r5|CM-7(1),800-53r5|CM-9,800-53r5|SA-3,800-53r5|SA-8,800-53r5|SA-10,CSCv7|5.1,CSCv8|4.1,CSF|DE.AE-1,CSF|PR.DS-7,CSF|PR.IP-1,CSF|PR.IP-2,CSF|PR.IP-3,CSF|PR.PT-3,CSF2.0|DE.CM-09,CSF2.0|ID.AM-08,CSF2.0|ID.IM-01,CSF2.0|ID.IM-02,CSF2.0|ID.IM-03,CSF2.0|ID.RA-09,CSF2.0|PR.DS-10,CSF2.0|PR.IR-03,CSF2.0|PR.PS-01,CSF2.0|PR.PS-06,GDPR|32.1.b,HIPAA|164.306(a)(1),ISO-27001-2022|A.5.2,ISO-27001-2022|A.5.8,ISO-27001-2022|A.8.9,ISO-27001-2022|A.8.25,ISO-27001-2022|A.8.26,ISO-27001-2022|A.8.27,ISO-27001-2022|A.8.28,ISO-27001-2022|A.8.30,ISO-27001-2022|A.8.31,ISO-27001-2022|A.8.32,ITSG-33|CM-2,ITSG-33|CM-6,ITSG-33|CM-7,ITSG-33|CM-7(1),ITSG-33|CM-9,ITSG-33|SA-3,ITSG-33|SA-8,ITSG-33|SA-8a.,ITSG-33|SA-10,LEVEL|1M,NESA|T1.2.1,NESA|T1.2.2,NESA|T3.2.5,NESA|T3.4.1,NESA|T4.5.3,NESA|T4.5.4,NESA|T7.2.1,NESA|T7.5.1,NESA|T7.5.3,NESA|T7.6.1,NESA|T7.6.2,NESA|T7.6.3,NESA|T7.6.5,NIAv2|SS3,NIAv2|SS15a,NIAv2|SS16,NIAv2|VL2,PCI-DSSv3.2.1|2.2.2,QCSC-v1|3.2,QCSC-v1|4.2,QCSC-v1|5.2.1,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+        </report>
+      </else>
+    </if>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "2.4 (Host image profile acceptance level must be PartnerSupported or higher"
+      info        : "The acceptance level on ESXi regulates the type of software that can be installed on the system, with four distinct levels: VMwareCertified, VMwareAccepted, PartnerSupported, and CommunitySupported. It's advised to set the acceptance level to PartnerSupported or higher to ensure that only tested and digitally signed vSphere Installation Bundles (VIBs) are allowed for installation.
+
+The ESXi Image Profile should only allow signed VIBs because an unsigned VIB represents untested code installed on an ESXi host. Also, use of unsigned VIBs will cause hypervisor Secure Boot to fail to configure. Community Supported VIBs do not have digital signatures. To protect the security and integrity of your ESXi hosts, do not allow unsigned (CommunitySupported) VIBs to be installed on your hosts."
+      solution    : "To verify the host image profile acceptance level perform the following:
+
+ - From the vSphere Web Client, select the host.
+ - Click Configure, then under System select Security Profile.
+ - Under Host Image Profile Acceptance Level select Edit
+ - In the dropdown select one of the following - VMware Certified, VMware Accepted, or Partner Supported.
+
+To implement the recommended configuration state, run the following PowerCLI command (in the example code, the level is Partner Supported):
+
+# Set the Software AcceptanceLevel for each host
+Foreach ($VMHost in Get-VMHost ) {
+ $ESXCli = Get-EsxCli -VMHost $VMHost
+ $ESXCli.software.acceptance.Set(\"PartnerSupported\")
+}
+
+Impact:
+
+Restricting the acceptance level to PartnerSupported or higher prevents the installation of CommunitySupported packages, which are unsigned and hence, potentially unreliable or insecure. This restriction, while enhancing security, might limit the range of software that can be installed on the ESXi host."
+      reference   : "800-171r3|03.16.02,800-53|SA-22,800-53r5|SA-22,CSCv7|2.2,CSCv8|2.2,CSF2.0|ID.AM-08,GDPR|32.1.b,HIPAA|164.306(a)(1),LEVEL|1A"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "esxcli software acceptance get"
+      expect      : "^[\\s]*(PartnerSupported|VMwareCertified|VMwareAccepted)[\\s]*$"
+    </custom_item>
+
+    <if>
+      <condition auto:"WARNING" type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "check that execInstalledOnly is configured TRUE"
+          cmd         : "/bin/esxcli system settings kernel list -o execInstalledOnly"
+          expect      : "^[\\s]*execInstalledOnly[\\s]+Bool[\\s]+TRUE"
+        </custom_item>
+
+        <custom_item>
+          type        : CMD_EXEC
+          description : "check installed VIBs for unauthorized or unsigned packages (manual review)"
+          cmd         : "/bin/esxcli software vib list"
+          expect      : "^Manual Review Required$"
+          severity    : MEDIUM
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "2.5 Host must only run binaries delivered via signed VIB"
+          info        : "The ESXi host is configured to only execute binaries originating from a valid, signed vSphere Installable Bundle (VIB) to enhance the integrity of the system. This measure thwarts attackers' attempts to use prebuilt toolkits on the host. The parameter governing this behavior is VMkernel.Boot.execInstalledOnly with a recommended setting of True.
+
+Ensuring the execution of only signed binaries significantly mitigates the risk of running malicious or unverified code, thus enhancing the host's security posture.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+          solution    : "- Remove unauthorized VIBs and set the kernel option with
+esxcli system settings kernel set -s execInstalledOnly -v TRUE
+ - Reboot if the command or build indicates a reboot is required
+ - Re-run the audit command and confirm only approved signed VIB-delivered binaries are executable.
+
+Impact:
+
+This security control may hinder the installation or execution of third-party unsigned software, potentially impacting the flexibility and extensibility of the ESXi host environment."
+          reference   : "800-171|3.4.1,800-171|3.4.7,800-171|3.4.9,800-171|3.14.2,800-171|3.14.4,800-171|3.14.5,800-171r3|03.04.06,800-171r3|03.04.10,800-171r3|03.14.02,800-53|CM-7(2),800-53|CM-8(3),800-53|CM-10,800-53|CM-11,800-53|SI-3,800-53r5|CM-7(2),800-53r5|CM-8(3),800-53r5|CM-10,800-53r5|CM-11,800-53r5|SI-3,CN-L3|7.1.3.6(b),CN-L3|8.1.4.5,CN-L3|8.1.9.6(a),CN-L3|8.1.9.6(b),CN-L3|8.1.10.2(a),CN-L3|8.1.10.2(b),CN-L3|8.1.10.5(b),CN-L3|8.1.10.7(a),CN-L3|8.1.10.7(b),CSCv7|2.2,CSCv7|8.2,CSCv8|2.3,CSCv8|10.2,CSF|DE.CM-3,CSF|DE.CM-4,CSF|DE.CM-7,CSF|DE.DP-3,CSF|PR.IP-1,CSF|PR.PT-3,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|ID.AM-01,CSF2.0|ID.AM-02,CSF2.0|PR.DS-01,CSF2.0|PR.DS-02,CSF2.0|PR.DS-10,CSF2.0|PR.PS-01,CSF2.0|PR.PS-02,GDPR|32.1.b,HIPAA|164.306(a)(1),ISO-27001-2022|A.5.9,ISO-27001-2022|A.5.32,ISO-27001-2022|A.8.7,ISO-27001-2022|A.8.9,ISO-27001-2022|A.8.19,ISO/IEC-27001|A.12.2.1,ISO/IEC-27001|A.12.6.2,ITSG-33|CM-7(2),ITSG-33|CM-8(3),ITSG-33|SI-3,LEVEL|1M,NESA|T1.2.1,NESA|T1.2.2,NIAv2|GS8a,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,PCI-DSSv3.2.1|5.1,PCI-DSSv3.2.1|5.1.1,PCI-DSSv4.0|5.2.1,QCSC-v1|3.2,QCSC-v1|5.2.2,QCSC-v1|5.2.3,QCSC-v1|6.2,QCSC-v1|8.2.1,SWIFT-CSCv1|2.3,SWIFT-CSCv1|5.1,TBA-FIISB|49.2.1,TBA-FIISB|49.2.2,TBA-FIISB|49.3.1,TBA-FIISB|49.3.2,TBA-FIISB|50.2.1,TBA-FIISB|51.2.4,TBA-FIISB|51.2.7"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+
+    <if>
+      <condition auto:"FAILED" type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "Time synchronization is enabled"
+          cmd         : "/bin/esxcli system ntp get"
+          expect      : "^[\\s]*Enabled:[\\s]+true$"
+        </custom_item>
+
+        <custom_item>
+          type        : CMD_EXEC
+          description : "Time servers are configured in the NTP configuration"
+          cmd         : "/bin/esxcli system ntp config get"
+          expect      : "^server[\\s]+[^\\s]"
+        </custom_item>
+
+        <custom_item>
+          type        : CMD_EXEC
+          description : "ntpd process is present in the host process list"
+          cmd         : "/bin/esxcli system process list | /bin/grep -i ntp"
+          expect      : "^[0-9]+[\\s]+[0-9]+[\\s]+ntpd[\\s]"
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "2.7 Host must have time synchronization services enabled and running"
+          info        : "Ensure the host has time synchronization services enabled and operational as many functions such as cryptography, audit logging, cluster operations, and incident response/forensics depend on synchronized time. Services like NTP or PTP should be configured to start with the host and remain running to maintain time synchronization.
+
+Having accurate time synchronization is crucial for the correct operation and auditing of the system. This will assist in incident response, forensics, and ensure that cryptographic functions operate correctly."
+          solution    : "- Configure approved NTP servers
+ - Enable the NTP client firewall ruleset if required
+ - Set the NTP service startup policy to start and stop with the host, and start the service.
+
+Example: esxcli system ntp set --enabled true after configuring approved servers. Verify synchronization after remediation.
+
+Impact:
+
+Failure to maintain time synchronization can lead to inaccurate logging, which could complicate incident response and forensic analysis. It may also affect the functioning of cluster operations and cryptographic protocols."
+          reference   : "800-171|3.3.6,800-171|3.3.7,800-171r3|03.03.06a.,800-171r3|03.03.07,800-53|AU-7,800-53|AU-8,800-53r5|AU-7,800-53r5|AU-8,CN-L3|7.1.2.3(c),CN-L3|8.1.4.3(b),CSCv7|6.1,CSCv8|8.4,CSF|PR.PT-1,CSF|RS.AN-3,CSF2.0|PR.PS-04,CSF2.0|RS.AN-03,CSF2.0|RS.AN-06,CSF2.0|RS.AN-07,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.8.17,ITSG-33|AU-7,ITSG-33|AU-8,LEVEL|1M,NESA|T3.6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,QCSC-v1|13.2,SWIFT-CSCv1|6.4,TBA-FIISB|37.4"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+
+    <if>
+      <condition auto:"FAILED" type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "Configuration encryption mode is TPM-backed"
+          cmd         : "/bin/esxcli system settings encryption get"
+          expect      : "^[\\s]*Mode:[\\s]+TPM$"
+        </custom_item>
+
+        <custom_item>
+          type        : CMD_EXEC
+          description : "TPM 2.0 is present and healthy"
+          cmd         : "/bin/esxcli hardware trustedboot get"
+          expect      : "^[\\s]*Tpm Present:[\\s]+true$"
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "2.8 Host must require TPM-based configuration encryption"
+          info        : "The host should enforce TPM-based configuration encryption to secure its configuration files, notably within the /etc/ directory or other namespaces. From vSphere 7.0 Update 2 onwards, configuration files archived are encrypted, leveraging a Trusted Platform Module (TPM) to \"seal\" the configuration to the host, thereby enhancing security against offline attacks. This encryption, once enabled, is irreversible and utilizes the physical TPM present during installation or upgrade.
+
+Implementing TPM-based configuration encryption significantly bolsters security by protecting configuration files from unauthorized access and alterations. This measure is crucial for safeguarding the integrity of host configurations and preventing potential offline attacks."
+          solution    : "- Ensure TPM 2.0 and Secure Boot are enabled.
+ - Take a backup of the ESXi recovery key
+ - Configure the host to use TPM-backed configuration encryption using the supported ESXi secure-configuration procedure.
+ - Reboot if required with the reboot command
+ - Re-run esxcli system settings encryption get
+
+Impact:
+
+Enabling TPM-based configuration encryption alongside Secure Boot renders traditional root password recovery methods ineffective. It's imperative to ensure continued access to administrator accounts on ESXi to avoid access issues."
+          reference   : "800-171|3.5.2,800-171|3.13.16,800-171r3|03.05.07,800-171r3|03.13.08,800-53|IA-5(1),800-53|SC-28,800-53|SC-28(1),800-53r5|IA-5(1),800-53r5|SC-28,800-53r5|SC-28(1),CN-L3|8.1.4.7(b),CN-L3|8.1.4.8(b),CSCv7|14.8,CSCv8|3.11,CSF|PR.AC-1,CSF|PR.DS-1,CSF2.0|PR.AA-01,CSF2.0|PR.AA-03,CSF2.0|PR.DS-01,GDPR|32.1.a,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(a)(2)(i),HIPAA|164.312(a)(2)(iv),HIPAA|164.312(d),HIPAA|164.312(e)(2)(ii),ISO-27001-2022|A.5.10,ISO-27001-2022|A.5.16,ISO-27001-2022|A.5.17,ISO-27001-2022|A.5.33,ITSG-33|IA-5(1),ITSG-33|SC-28,ITSG-33|SC-28a.,ITSG-33|SC-28(1),LEVEL|1M,NESA|T5.2.3,PCI-DSSv3.2.1|3.4,PCI-DSSv4.0|3.3.2,PCI-DSSv4.0|3.5.1,QCSC-v1|5.2.2,QCSC-v1|6.2,QCSC-v1|13.2,SWIFT-CSCv1|4.1,TBA-FIISB|28.1"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "3.22 Host must deny shell access for the dcui account"
+      info        : "The dcui account, utilized for process isolation for the Direct Console User Interface (DCUI), possesses shell access which, when deactivated, minimizes the attack surface. This action is a proactive measure to enhance system security.
+
+Deactivating shell access for the dcui account reduces the avenues of exploitation available to potential attackers. It is a prudent step towards a hardened security posture.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "Configure the dcui service account to have no shell access using the supported ESXi account-management mechanism for the installed build, and verify that the account cannot establish an interactive shell.
+
+Note: It is advised not to manually edit /etc/passwd unless directed by Broadcom support.
+
+Impact:
+
+There is no functional impact noted from denying shell access for the dcui account, making it a low-risk yet effective security control."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.4.8,800-171r3|03.04.06,800-171r3|03.04.08,800-53|CM-7,800-53|CM-7(1),800-53|CM-7(5),800-53|CM-10,800-53|SI-7,800-53|SI-7(1),800-53r5|CM-7,800-53r5|CM-7(1),800-53r5|CM-7(5),800-53r5|CM-10,800-53r5|SI-7,800-53r5|SI-7(1),CN-L3|7.1.3.5(b),CSCv7|2.7,CSCv7|2.8,CSCv7|2.9,CSCv8|2.5,CSCv8|2.7,CSF|DE.CM-3,CSF|PR.DS-6,CSF|PR.IP-1,CSF|PR.PT-3,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|ID.RA-09,CSF2.0|PR.DS-01,CSF2.0|PR.DS-02,CSF2.0|PR.DS-10,CSF2.0|PR.PS-01,CSF2.0|PR.PS-02,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(c)(1),HIPAA|164.312(c)(2),HIPAA|164.312(e)(2)(i),ISO-27001-2022|A.5.32,ISO-27001-2022|A.8.19,ISO/IEC-27001|A.12.5.1,ISO/IEC-27001|A.12.6.2,ITSG-33|CM-7,ITSG-33|CM-7(1),ITSG-33|SI-7,ITSG-33|SI-7a.,ITSG-33|SI-7(1),LEVEL|1M,NESA|T3.4.1,NESA|T7.3.2,NESA|T7.3.3,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,PCI-DSSv3.2.1|10.5.5,QCSC-v1|3.2,QCSC-v1|8.2.1,SWIFT-CSCv1|2.3,SWIFT-CSCv1|6.2,TBA-FIISB|44.2.2,TBA-FIISB|49.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/passwd"
+      regex       : "^dcui:"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <if>
+      <condition auto:"FAILED" type:"AND">
+        <custom_item>
+          type        : FILE_CONTENT_CHECK
+          description : "SSH Banner directive references the site banner file"
+          file        : "/etc/ssh/sshd_config"
+          regex       : "(?i)^[\\s]*Banner[\\s]"
+          expect      : "(?i)^[\\s]*Banner[\\s]+@SSH_BANNER_FILE@[\\s]*(#.*)?$"
+        </custom_item>
+
+        <custom_item>
+          type         : BANNER_CHECK
+          description  : "Ensure banner argument matches site policy"
+          file         : "@SSH_BANNER_FILE@"
+          content      : "@BANNER_TEXT@"
+          is_substring : YES
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "3.25 Host must display a login banner for SSH connections"
+          info        : "ESXi facilitates the display of a login message, primarily aimed to deter unauthorized access and inform legitimate users regarding system usage obligations, particularly during SSH connections. The text for this display is defined by a specific parameter, which is advisable to be configured, especially when SSH is active, albeit it's recommended to keep SSH in a stopped state barring troubleshooting scenarios. The parameter governing this behavior is Config.Etc.Issue.
+
+Displaying a login banner serves as a preliminary deterrent to unauthorized users while reinforcing legal and policy compliances for authorized users. It encapsulates a proactive security measure, alongside aligning with several compliance mandates that necessitate the use of login banners."
+          solution    : "- Configure Banner /etc/issue in the SSH configuration and place the approved warning text in the referenced file.
+ - Restart SSH only if it is authorized to be running; otherwise leave SSH disabled.
+
+Impact:
+
+There is no functional impact associated with this security control; however, the absence of a login banner might pose a risk in terms of legal protection and compliance adherence, especially during SSH connections where potential misuse could occur. It's prudent to consult with legal advisors to craft a banner text that aligns with organizational and legal requisites."
+          reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "4.10 Host must verify certificates for TLS remote logging endpoints"
+      info        : "When engaging in remote logging activities, it is of utmost importance to ensure that the logging endpoint is genuine and secure. To achieve this, hosts should verify the TLS certificates of these endpoints. This verification provides assurance that the endpoint is both authentic and trustworthy, mitigating the risk of transmitting logs to potentially malicious or untrusted entities. The parameter governing this behavior is Syslog.global.certificate.checkSSLCerts with a recommended setting of TRUE.
+
+Ensuring the authenticity and trustworthiness of remote logging endpoints is crucial for maintaining the security and integrity of the transmitted log data. By verifying the TLS certificates of these endpoints, the potential risk of man-in-the-middle attacks, data breaches, or unintended exposure of sensitive log information is significantly reduced."
+      solution    : "Execute command: esxcli system syslog config set --check-ssl-certs=true
+
+Verify with: esxcli system syslog config get
+
+remediated result should include: ssl://
+
+Impact:
+
+There is no direct functional impact when verifying certificates for TLS remote logging endpoints. However, it is essential to ensure that the certificates used by the logging endpoints are valid and up-to-date. If not, there might be interruptions in log transmissions or potential trust issues, necessitating certificate management and regular updates."
+      reference   : "800-171|3.1.1,800-171|3.1.2,800-171|3.1.12,800-171|3.13.1,800-171|3.13.5,800-171|3.14.6,800-171|3.14.7,800-171r3|03.01.12,800-171r3|03.13.01,800-171r3|03.14.06,800-53|AC-17,800-53|AC-17(1),800-53|SC-7,800-53|SI-4,800-53r5|AC-17,800-53r5|AC-17(1),800-53r5|SC-7,800-53r5|SI-4,CN-L3|7.1.3.5(a),CN-L3|8.1.4.4(c),CN-L3|8.1.10.5(b),CN-L3|8.1.10.6(f),CN-L3|8.1.10.6(i),CN-L3|8.1.10.6(j),CSCv7|1.8,CSCv8|13.5,CSF|DE.AE-1,CSF|DE.AE-2,CSF|DE.AE-3,CSF|DE.AE-4,CSF|DE.CM-1,CSF|DE.CM-5,CSF|DE.CM-6,CSF|DE.CM-7,CSF|DE.DP-2,CSF|DE.DP-3,CSF|DE.DP-4,CSF|DE.DP-5,CSF|ID.RA-1,CSF|PR.AC-3,CSF|PR.AC-5,CSF|PR.DS-5,CSF|PR.IP-8,CSF|PR.PT-4,CSF|RS.AN-1,CSF|RS.CO-3,CSF2.0|DE.AE-02,CSF2.0|DE.AE-03,CSF2.0|DE.CM-01,CSF2.0|DE.CM-06,CSF2.0|DE.CM-09,CSF2.0|ID.IM-01,CSF2.0|ID.IM-02,CSF2.0|ID.IM-03,CSF2.0|ID.RA-01,CSF2.0|PR.AA-05,CSF2.0|PR.DS-01,CSF2.0|PR.DS-02,CSF2.0|PR.DS-10,CSF2.0|PR.IR-01,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.5.14,ISO-27001-2022|A.6.7,ISO-27001-2022|A.8.16,ISO-27001-2022|A.8.20,ISO/IEC-27001|A.6.2.2,ISO/IEC-27001|A.13.1.3,ITSG-33|AC-17,ITSG-33|AC-17(1),ITSG-33|SC-7,ITSG-33|SI-4,LEVEL|1M,NESA|M1.2.2,NESA|T4.5.4,NESA|T5.4.4,NESA|T5.4.5,NIAv2|GS1,NIAv2|GS2a,NIAv2|GS2b,PCI-DSSv3.2.1|1.1,PCI-DSSv3.2.1|1.2,PCI-DSSv3.2.1|1.2.1,PCI-DSSv3.2.1|1.3,PCI-DSSv4.0|1.2.1,PCI-DSSv4.0|1.4.1,QCSC-v1|3.2,QCSC-v1|5.2.1,QCSC-v1|5.2.2,QCSC-v1|5.2.3,QCSC-v1|6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,SWIFT-CSCv1|2.6,TBA-FIISB|43.1"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system syslog config get"
+      expect      : "^[\\s]*Enforce SSLCertificates:[\\s]+true$"
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "4.11 Host must use strict x509 verification for TLS-enabled remote logging endpoints"
+      info        : "When employing remote logging with TLS-enabled endpoints, it is essential to ensure the utmost integrity and authenticity of the certificates in use. The \"x509-strict\" option provides a higher level of security by performing additional validity checks on CA root certificates during the verification process. This increased scrutiny ensures that only genuinely authenticated and trusted certificates are accepted, minimizing potential vulnerabilities. The parameter governing this behavior is Syslog.global.certificate.strictX509Compliance with a recommended setting of TRUE.
+
+Ensuring stringent verification of CA root certificates provides a higher level of trust and security in the remote logging process. Adopting the \"x509-strict\" option minimizes the risk of accepting compromised or malicious certificates, thereby reducing the potential for data breaches, man-in-the-middle attacks, or other security compromises."
+      solution    : "Utilize PowerCLI to remediate
+
+</> Powershell
+
+Get-VMHost |
+    Get-AdvancedSetting -Name \"Syslog.global.certificate.strictX509Compliance\" |
+    Set-AdvancedSetting -Value $true -Confirm:$false
+
+Verify with
+
+Get-VMHost |
+    Get-AdvancedSetting -Name \"Syslog.global.certificate.strictX509Compliance\"
+
+Expected Calue is: Value = True
+
+Impact:
+
+There is no immediate functional impact from using strict x509 verification for TLS-enabled remote logging endpoints. However, organizations must ensure that their CA root certificates meet the strict criteria set by this option. If certificates do not meet these criteria, there may be disruptions in log transmissions, necessitating adjustments or updates to the certificates in use.
+
+Explicit warning: Syslog.global.certificate.strictX509Compliance = true
+can break connectivity to existing syslog endpoints if their certificates do not meet the stricter requirements."
+      reference   : "800-171|3.1.1,800-171|3.1.2,800-171|3.1.12,800-171|3.13.1,800-171|3.13.5,800-171|3.14.6,800-171|3.14.7,800-171r3|03.01.12,800-171r3|03.13.01,800-171r3|03.14.06,800-53|AC-17,800-53|AC-17(1),800-53|SC-7,800-53|SI-4,800-53r5|AC-17,800-53r5|AC-17(1),800-53r5|SC-7,800-53r5|SI-4,CN-L3|7.1.3.5(a),CN-L3|8.1.4.4(c),CN-L3|8.1.10.5(b),CN-L3|8.1.10.6(f),CN-L3|8.1.10.6(i),CN-L3|8.1.10.6(j),CSCv7|1.8,CSCv8|13.5,CSF|DE.AE-1,CSF|DE.AE-2,CSF|DE.AE-3,CSF|DE.AE-4,CSF|DE.CM-1,CSF|DE.CM-5,CSF|DE.CM-6,CSF|DE.CM-7,CSF|DE.DP-2,CSF|DE.DP-3,CSF|DE.DP-4,CSF|DE.DP-5,CSF|ID.RA-1,CSF|PR.AC-3,CSF|PR.AC-5,CSF|PR.DS-5,CSF|PR.IP-8,CSF|PR.PT-4,CSF|RS.AN-1,CSF|RS.CO-3,CSF2.0|DE.AE-02,CSF2.0|DE.AE-03,CSF2.0|DE.CM-01,CSF2.0|DE.CM-06,CSF2.0|DE.CM-09,CSF2.0|ID.IM-01,CSF2.0|ID.IM-02,CSF2.0|ID.IM-03,CSF2.0|ID.RA-01,CSF2.0|PR.AA-05,CSF2.0|PR.DS-01,CSF2.0|PR.DS-02,CSF2.0|PR.DS-10,CSF2.0|PR.IR-01,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.5.14,ISO-27001-2022|A.6.7,ISO-27001-2022|A.8.16,ISO-27001-2022|A.8.20,ISO/IEC-27001|A.6.2.2,ISO/IEC-27001|A.13.1.3,ITSG-33|AC-17,ITSG-33|AC-17(1),ITSG-33|SC-7,ITSG-33|SI-4,LEVEL|1M,NESA|M1.2.2,NESA|T4.5.4,NESA|T5.4.4,NESA|T5.4.5,NIAv2|GS1,NIAv2|GS2a,NIAv2|GS2b,PCI-DSSv3.2.1|1.1,PCI-DSSv3.2.1|1.2,PCI-DSSv3.2.1|1.2.1,PCI-DSSv3.2.1|1.3,PCI-DSSv4.0|1.2.1,PCI-DSSv4.0|1.4.1,QCSC-v1|3.2,QCSC-v1|5.2.1,QCSC-v1|5.2.2,QCSC-v1|5.2.3,QCSC-v1|6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,SWIFT-CSCv1|2.6,TBA-FIISB|43.1"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system syslog config get"
+      expect      : "^[\\s]*Strict X509Compliance:[\\s]+true$"
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "4.3 Host must log sufficient information for events"
+      info        : "Set the Syslog.global.logLevel parameter to \"info\" to ensure that audit logs capture sufficient information for diagnosing issues and investigating security events. This setting strikes a balance between log verbosity and storage utilization. The parameter governing this behavior is Syslog.global.logLevel with a recommended setting of info.
+
+Adequate log data is crucial for identifying indicators of compromise, enabling timely and effective response to cybersecurity incidents. The \"info\" level provides essential details without excessively consuming storage resources.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "- Increase the number of rotations and/or individual log size
+ - esxcli system syslog config logger set --id=vmkernel --rotate=15 --size=10240
+ - esxcli system syslog config logger set --id=hostd --rotate=15 --size=10240
+
+Impact:
+
+More verbose logging levels will demand additional storage space while potentially burying critical entries under less significant data. Conversely, less verbose levels might miss capturing crucial information, hindering effective diagnostics and incident response."
+      reference   : "800-171|3.3.1,800-171|3.3.2,800-171|3.3.6,800-171r3|03.03.02a.,800-171r3|03.03.02b.,800-171r3|03.03.03,800-171r3|03.03.06a.,800-53|AU-3,800-53|AU-3(1),800-53|AU-7,800-53|AU-12,800-53r5|AU-3,800-53r5|AU-3(1),800-53r5|AU-7,800-53r5|AU-12,CN-L3|7.1.2.3(a),CN-L3|7.1.2.3(b),CN-L3|7.1.2.3(c),CN-L3|7.1.3.3(a),CN-L3|7.1.3.3(b),CN-L3|8.1.4.3(b),CSCv7|6.3,CSCv8|8.5,CSF|DE.CM-1,CSF|DE.CM-3,CSF|DE.CM-7,CSF|PR.PT-1,CSF|RS.AN-3,CSF2.0|DE.CM-01,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|PR.PS-04,CSF2.0|RS.AN-03,CSF2.0|RS.AN-06,CSF2.0|RS.AN-07,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.5.28,ISO-27001-2022|A.8.15,ITSG-33|AU-3,ITSG-33|AU-3(1),ITSG-33|AU-7,ITSG-33|AU-12,LEVEL|1M,NESA|T3.6.2,NIAv2|AM34a,NIAv2|AM34b,NIAv2|AM34c,NIAv2|AM34d,NIAv2|AM34e,NIAv2|AM34f,NIAv2|AM34g,PCI-DSSv3.2.1|10.1,PCI-DSSv3.2.1|10.3,PCI-DSSv3.2.1|10.3.1,PCI-DSSv3.2.1|10.3.2,PCI-DSSv3.2.1|10.3.3,PCI-DSSv3.2.1|10.3.4,PCI-DSSv3.2.1|10.3.5,PCI-DSSv3.2.1|10.3.6,PCI-DSSv4.0|10.2.2,QCSC-v1|3.2,QCSC-v1|6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,QCSC-v1|13.2,SWIFT-CSCv1|6.4"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system syslog config logger list | /bin/grep 'ID:'"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "4.4 Host must set the logging informational level to info"
+      info        : "Set the logging informational level to \"info\" via the Config.HostAgent.log.level parameter to ensure audit logs contain adequate data for diagnostics and forensics. This level provides a balanced amount of detail, suitable for routine analysis and investigation. The parameter governing this behavior is Config.HostAgent.log.level with a recommended setting of info.
+
+The \"info\" level balances the detail in logs, aiding in diagnostics and forensics without overwhelming storage resources."
+      solution    : "Using the vSphere client:
+
+Host
+-> Configure
+-> System
+-> Advanced System Settings
+-> Syslog.global.logLevel
+
+Set: info
+
+Execute command: esxcli system syslog config get | grep \"Log Level\"
+Verify - Log Level: info
+
+Impact:
+
+A more verbose log level increases data volume, demanding additional storage, while a less verbose level may lack crucial information for effective diagnostics and forensics."
+      reference   : "800-171|3.3.1,800-171|3.3.2,800-171|3.3.6,800-171r3|03.03.02a.,800-171r3|03.03.02b.,800-171r3|03.03.03,800-171r3|03.03.06a.,800-53|AU-3,800-53|AU-3(1),800-53|AU-4,800-53|AU-7,800-53|AU-12,800-53r5|AU-3,800-53r5|AU-3(1),800-53r5|AU-4,800-53r5|AU-7,800-53r5|AU-12,CN-L3|7.1.2.3(a),CN-L3|7.1.2.3(b),CN-L3|7.1.2.3(c),CN-L3|7.1.3.3(a),CN-L3|7.1.3.3(b),CN-L3|8.1.4.3(b),CSCv7|6.3,CSCv7|6.4,CSCv8|8.3,CSCv8|8.5,CSF|DE.CM-1,CSF|DE.CM-3,CSF|DE.CM-7,CSF|PR.DS-4,CSF|PR.PT-1,CSF|RS.AN-3,CSF2.0|DE.CM-01,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|PR.PS-04,CSF2.0|RS.AN-03,CSF2.0|RS.AN-06,CSF2.0|RS.AN-07,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.5.28,ISO-27001-2022|A.8.6,ISO-27001-2022|A.8.15,ITSG-33|AU-3,ITSG-33|AU-3(1),ITSG-33|AU-4,ITSG-33|AU-7,ITSG-33|AU-12,LEVEL|1M,NESA|T3.3.1,NESA|T3.6.2,NIAv2|AM34a,NIAv2|AM34b,NIAv2|AM34c,NIAv2|AM34d,NIAv2|AM34e,NIAv2|AM34f,NIAv2|AM34g,PCI-DSSv3.2.1|10.1,PCI-DSSv3.2.1|10.3,PCI-DSSv3.2.1|10.3.1,PCI-DSSv3.2.1|10.3.2,PCI-DSSv3.2.1|10.3.3,PCI-DSSv3.2.1|10.3.4,PCI-DSSv3.2.1|10.3.5,PCI-DSSv3.2.1|10.3.6,PCI-DSSv4.0|10.2.2,QCSC-v1|3.2,QCSC-v1|6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,QCSC-v1|13.2,SWIFT-CSCv1|6.4"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system syslog config get | /bin/grep 'Log Level'"
+      expect      : "(?i)Log Level: info$"
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "4.5 Host must deactivate log filtering"
+      info        : "Log filtering can be employed to diminish the frequency of repetitive log entries and to preclude specific log events entirely. By employing the Syslog.global.logFilters configuration parameter, one can stipulate filtering criteria, which when met, will cause the designated log events to be excluded from the system logs. The control aids in maintaining a clean, informative logging environment by filtering out unwanted or redundant log entries. The parameter governing this behavior is Syslog.global.logFiltersEnable with a recommended setting of FALSE.
+
+Comprehensive logging is crucial for understanding and monitoring system behavior. By deactivating log filtering, administrators can capture all log events, regardless of their frequency or perceived importance. This guarantees a complete record of system activity, which can be invaluable for incident response and post-incident analysis."
+      solution    : "- Disable log filtering
+ - execute command: esxcli system syslog config logfilter set --log-filtering-enabled=false
+ - execute: Get-VMHost | Get-AdvancedSetting -Name \"Syslog.global.logFiltersEnable\"
+
+passing value is: False
+
+Impact:
+
+There is no direct functional impact from deactivating log filtering. However, it may result in increased storage requirements for log files due to the additional log entries being stored. Organizations should ensure adequate storage space is available for logs and consider adjusting log retention policies if necessary."
+      reference   : "800-171|3.3.1,800-171|3.3.2,800-171|3.3.6,800-171r3|03.03.01,800-171r3|03.03.03,800-171r3|03.03.06a.,800-53|AU-2,800-53|AU-4,800-53|AU-7,800-53|AU-12,800-53r5|AU-2,800-53r5|AU-4,800-53r5|AU-7,800-53r5|AU-12,CN-L3|7.1.2.3(c),CN-L3|8.1.4.3(a),CSCv7|6.3,CSCv7|14.9,CSCv8|8.2,CSCv8|8.3,CSF|DE.CM-1,CSF|DE.CM-3,CSF|DE.CM-7,CSF|PR.DS-4,CSF|PR.PT-1,CSF|RS.AN-3,CSF2.0|DE.CM-01,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|PR.PS-04,CSF2.0|RS.AN-03,CSF2.0|RS.AN-06,CSF2.0|RS.AN-07,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.8.6,ISO-27001-2022|A.8.15,ITSG-33|AU-2,ITSG-33|AU-4,ITSG-33|AU-7,ITSG-33|AU-12,LEVEL|1M,NESA|M1.2.2,NESA|M5.5.1,NESA|T3.3.1,NESA|T3.6.2,NIAv2|AM7,NIAv2|AM11a,NIAv2|AM11b,NIAv2|AM11c,NIAv2|AM11d,NIAv2|AM11e,NIAv2|SS30,NIAv2|VL8,PCI-DSSv3.2.1|10.1,QCSC-v1|3.2,QCSC-v1|6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,QCSC-v1|13.2,SWIFT-CSCv1|6.4"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system syslog config logfilter get"
+      expect      : "(?i)Log Filtering Enabled: false$"
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "4.6 Host must enable audit record logging"
+      info        : "Enabling audit record logging on ESXi hosts ensures the local storage of audit records, providing a trail of activities performed on the host. This measure is pivotal for accountability, troubleshooting, and security investigations. The parameter governing this behavior is Syslog.global.auditRecord.storageEnable with a recommended setting of TRUE.
+
+Enabling audit record logging is crucial for maintaining a secure and compliant operational environment. It provides visibility into host activities, aiding in identifying and investigating unauthorized or malicious actions."
+      solution    : "To enable local audit-record logging:
+
+ - Execute command: esxcli system auditrecords local enable
+ - Verify remediation with: esxcli system auditrecords get
+ - passing results: Audit Record Storage Active: true
+
+Impact:
+
+While beneficial for security and compliance, enabling audit record logging consumes additional storage space on the host, which may necessitate enhanced storage management practices to ensure optimal performance."
+      reference   : "800-171|3.3.1,800-171|3.3.2,800-171|3.3.6,800-171r3|03.03.01,800-171r3|03.03.03,800-171r3|03.03.06a.,800-53|AU-2,800-53|AU-7,800-53|AU-12,800-53r5|AU-2,800-53r5|AU-7,800-53r5|AU-12,CN-L3|7.1.2.3(c),CN-L3|8.1.4.3(a),CSCv7|6.3,CSCv7|6.4,CSCv8|8.2,CSF|DE.CM-1,CSF|DE.CM-3,CSF|DE.CM-7,CSF|PR.PT-1,CSF|RS.AN-3,CSF2.0|DE.CM-01,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|PR.PS-04,CSF2.0|RS.AN-03,CSF2.0|RS.AN-06,CSF2.0|RS.AN-07,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.8.15,ITSG-33|AU-2,ITSG-33|AU-7,ITSG-33|AU-12,LEVEL|1M,NESA|M1.2.2,NESA|M5.5.1,NIAv2|AM7,NIAv2|AM11a,NIAv2|AM11b,NIAv2|AM11c,NIAv2|AM11d,NIAv2|AM11e,NIAv2|SS30,NIAv2|VL8,PCI-DSSv3.2.1|10.1,QCSC-v1|3.2,QCSC-v1|6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,QCSC-v1|13.2,SWIFT-CSCv1|6.4"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system auditrecords get | /bin/grep 'Storage Active'"
+      expect      : "(?i)Audit Record Storage Active: true$"
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "4.7 Host must configure a persistent log location for all locally stored audit records"
+      info        : "Configuring a persistent log location for locally stored audit records on ESXi hosts is critical to ensure audit continuity. When the \"/scratch\" directory is linked to \"/tmp/scratch\", only a day's worth of records are retained, and they are reinitialized upon each reboot, creating a security risk. A persistent datastore, except a vSAN datastore, should be designated for audit record logging to preserve records across reboots. The parameter governing this behavior is Syslog.global.auditRecord.storageDirectory.
+
+A persistent log location safeguards audit records, enhancing the auditability and diagnosability of system events. This setup helps in adhering to compliance requirements and facilitating future audits.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "Configure a persistent datastore location with:
+
+esxcli system auditrecords local set \\ --directory=/vmfs/volumes/<Datastore-UUID>/audit/<hostname>
+
+then
+
+esxcli system auditrecords local enable
+
+verify compliance with:
+esxcli system auditrecords get
+
+compliant results =
+Audit Record Storage Active: true
+Audit Record Storage Directory: /vmfs/volumes/<Datastore-UUID>/audit/<hostname>
+
+Impact:
+
+Implementing this control will consume additional storage space for logs, necessitating a balanced approach to storage management, especially when local non-vSAN storage options are limited."
+      reference   : "800-171|3.3.1,800-171|3.3.5,800-171r3|03.03.05c.,800-53|AU-6(3),800-53r5|AU-6(3),CN-L3|7.1.3.3(d),CSCv7|6.5,CSCv8|8.9,CSF|DE.AE-2,CSF|DE.AE-3,CSF|DE.DP-4,CSF|PR.PT-1,CSF|RS.AN-1,CSF|RS.CO-2,CSF2.0|DE.AE-02,CSF2.0|DE.AE-03,CSF2.0|PR.PS-04,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.5.25,ISO-27001-2022|A.6.8,ISO-27001-2022|A.8.15,ITSG-33|AU-6(3),LEVEL|1M,NESA|M5.2.5,QCSC-v1|5.2.3,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,QCSC-v1|13.2,SWIFT-CSCv1|6.4"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system auditrecords get | /bin/grep 'Audit Record'"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "4.8 Host must store one week of audit records"
+      info        : "Ensuring a local storage capacity for a week's worth of audit records is imperative, especially when a remote audit record storage facility is used. This provision is critical during anticipated interruptions in record delivery to the remote facility, preventing loss or overwriting of audit records. The parameter governing this behavior is Syslog.global.auditRecord.storageCapacity with a recommended setting of 100.
+
+Storing a week of audit records locally safeguards against data loss during interruptions with remote storage facilities, maintaining compliance and audit trail continuity."
+      solution    : "Increase the local audit-record storage capacity to store at least 7 days worth of audit logs.
+
+execute: esxcli system auditrecords local set --size=<MiB>
+
+Impact:
+
+This security control entails additional storage space consumption for logs, requiring possible adjustments in storage management."
+      reference   : "800-171|3.3.1,800-171|3.3.2,800-171|3.3.5,800-171|3.3.6,800-171r3|03.03.01,800-171r3|03.03.03,800-171r3|03.03.05c.,800-171r3|03.03.06a.,800-53|AU-2,800-53|AU-6(3),800-53|AU-7,800-53|AU-12,800-53r5|AU-2,800-53r5|AU-6(3),800-53r5|AU-7,800-53r5|AU-12,CN-L3|7.1.2.3(c),CN-L3|7.1.3.3(d),CN-L3|8.1.4.3(a),CSCv7|6.5,CSCv8|8.2,CSCv8|8.9,CSF|DE.AE-2,CSF|DE.AE-3,CSF|DE.CM-1,CSF|DE.CM-3,CSF|DE.CM-7,CSF|DE.DP-4,CSF|PR.PT-1,CSF|RS.AN-1,CSF|RS.AN-3,CSF|RS.CO-2,CSF2.0|DE.AE-02,CSF2.0|DE.AE-03,CSF2.0|DE.CM-01,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|PR.PS-04,CSF2.0|RS.AN-03,CSF2.0|RS.AN-06,CSF2.0|RS.AN-07,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.5.25,ISO-27001-2022|A.6.8,ISO-27001-2022|A.8.15,ITSG-33|AU-2,ITSG-33|AU-6(3),ITSG-33|AU-7,ITSG-33|AU-12,LEVEL|1M,NESA|M1.2.2,NESA|M5.2.5,NESA|M5.5.1,NIAv2|AM7,NIAv2|AM11a,NIAv2|AM11b,NIAv2|AM11c,NIAv2|AM11d,NIAv2|AM11e,NIAv2|SS30,NIAv2|VL8,PCI-DSSv3.2.1|10.1,QCSC-v1|3.2,QCSC-v1|5.2.3,QCSC-v1|6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,QCSC-v1|13.2,SWIFT-CSCv1|6.4"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system auditrecords get | /bin/grep 'Storage Capacity'"
+      expect      : "(?i)^[\\s]*Audit Record Storage Capacity:[\\s]+@AUDIT_LOG_CAPACITY@$"
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "5.11 Host must isolate management communications"
+      info        : "Ensure that only vmk interfaces designated for management purposes have management services enabled to uphold network isolation and security. Incorrect configuration may undermine security efforts by breaching network isolation principles.
+
+Restricting management services to designated vmk interfaces minimizes the attack surface and ensures that management communications are isolated from other traffic, adhering to network segmentation best practices.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "To remediate this recommendation, create or move management VMkernel interfaces to dedicated management port groups/VLANs, apply firewall/ACL restrictions, and remove management service flags from interfaces that do not require them. Test vCenter connectivity before deleting the old path.
+
+Impact:
+
+This control may affect third-party managed solutions requiring specific configurations. Configurations may need to be tailored based on the particular environment and third-party solutions in use."
+      reference   : "800-171|3.1.14,800-171r3|03.01.12c.,800-53|AC-17(3),800-53|SI-7,800-53r5|AC-17(3),800-53r5|SI-7,CN-L3|8.1.4.4(c),CN-L3|8.1.10.6(i),CSCv7|4.6,CSCv8|12.8,CSF|PR.AC-3,CSF|PR.DS-6,CSF|PR.PT-4,CSF2.0|DE.CM-09,CSF2.0|ID.RA-09,CSF2.0|PR.AA-05,CSF2.0|PR.DS-01,CSF2.0|PR.DS-02,CSF2.0|PR.DS-10,CSF2.0|PR.PS-02,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(a)(1),HIPAA|164.312(c)(1),HIPAA|164.312(c)(2),HIPAA|164.312(e)(2)(i),ISO-27001-2022|A.5.14,ISO-27001-2022|A.6.7,ISO/IEC-27001|A.6.2.2,ITSG-33|AC-17(3),ITSG-33|SI-7,ITSG-33|SI-7a.,LEVEL|1M,NESA|T3.4.1,NESA|T5.4.6,NESA|T7.3.2,NESA|T7.3.3,PCI-DSSv3.2.1|10.5.5,QCSC-v1|3.2,QCSC-v1|5.2.1,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli network ip interface list"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <if>
+      <condition type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "ESXi firewall is enabled"
+          cmd         : "/bin/esxcli network firewall get"
+          expect      : "^[\\s]*Enabled:[\\s]+true[\\s]*$"
+        </custom_item>
+      </condition>
+
+      <then>
+        <custom_item>
+          type        : CMD_EXEC
+          description : "5.2 Host must block network traffic by default"
+          info        : "By default, the host is configured to block all incoming and outgoing network traffic, except for the traffic pertaining to services enabled in the host security profile. This configuration is pivotal in reducing the attack surface and averting unauthorized access to the host. Even though there isn't a specific configuration parameter provided, the firewall settings are manageable through the VMware Host Client, wherein rules can be specified to allow or deny traffic for each service on a per-IP basis, ensuring only authorized networks have access.
+
+Adhering to a policy of blocking network traffic by default significantly minimizes the risk of unauthorized access and potential external attacks. This posture promotes a principle of least privilege on the network level, ensuring only explicitly allowed traffic can communicate with the host, thereby enhancing the security posture.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+          solution    : "- Enable the ESXi firewall if disabled and disable unnecessary rulesets.
+ - Use: esxcli network firewall set --enabled true
+ - Configure only the required rulesets for documented services.
+
+Impact:
+
+There is no functional impact mentioned for this security control. However, overly restrictive configurations might impede necessary communications if not properly managed, potentially affecting service availability and operational efficiency. Therefore, careful consideration and testing are advised when adjusting firewall settings to ensure essential traffic is not inadvertently blocked."
+          reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.4.8,800-171r3|03.04.06,800-171r3|03.04.08,800-53|CM-7,800-53|CM-7(1),800-53|CM-7(5),800-53|CM-10,800-53|SI-7,800-53|SI-7(1),800-53r5|CM-7,800-53r5|CM-7(1),800-53r5|CM-7(5),800-53r5|CM-10,800-53r5|SI-7,800-53r5|SI-7(1),CN-L3|7.1.3.5(b),CSCv7|2.7,CSCv7|2.9,CSCv8|2.5,CSCv8|2.7,CSF|DE.CM-3,CSF|PR.DS-6,CSF|PR.IP-1,CSF|PR.PT-3,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|ID.RA-09,CSF2.0|PR.DS-01,CSF2.0|PR.DS-02,CSF2.0|PR.DS-10,CSF2.0|PR.PS-01,CSF2.0|PR.PS-02,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(c)(1),HIPAA|164.312(c)(2),HIPAA|164.312(e)(2)(i),ISO-27001-2022|A.5.32,ISO-27001-2022|A.8.19,ISO/IEC-27001|A.12.5.1,ISO/IEC-27001|A.12.6.2,ITSG-33|CM-7,ITSG-33|CM-7(1),ITSG-33|SI-7,ITSG-33|SI-7a.,ITSG-33|SI-7(1),LEVEL|1M,NESA|T3.4.1,NESA|T7.3.2,NESA|T7.3.3,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,PCI-DSSv3.2.1|10.5.5,QCSC-v1|3.2,QCSC-v1|8.2.1,SWIFT-CSCv1|2.3,SWIFT-CSCv1|6.2,TBA-FIISB|44.2.2,TBA-FIISB|49.2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          cmd         : "/bin/esxcli network firewall ruleset list"
+          expect      : "^Manual Review Required$"
+          severity    : MEDIUM
+        </custom_item>
+      </then>
+
+      <else>
+        <report type:"FAILED">
+          description : "5.2 Host must block network traffic by default"
+          info        : "By default, the host is configured to block all incoming and outgoing network traffic, except for the traffic pertaining to services enabled in the host security profile. This configuration is pivotal in reducing the attack surface and averting unauthorized access to the host. Even though there isn't a specific configuration parameter provided, the firewall settings are manageable through the VMware Host Client, wherein rules can be specified to allow or deny traffic for each service on a per-IP basis, ensuring only authorized networks have access.
+
+Adhering to a policy of blocking network traffic by default significantly minimizes the risk of unauthorized access and potential external attacks. This posture promotes a principle of least privilege on the network level, ensuring only explicitly allowed traffic can communicate with the host, thereby enhancing the security posture."
+          solution    : "- Enable the ESXi firewall if disabled and disable unnecessary rulesets.
+ - Use: esxcli network firewall set --enabled true
+ - Configure only the required rulesets for documented services.
+
+Impact:
+
+There is no functional impact mentioned for this security control. However, overly restrictive configurations might impede necessary communications if not properly managed, potentially affecting service availability and operational efficiency. Therefore, careful consideration and testing are advised when adjusting firewall settings to ensure essential traffic is not inadvertently blocked."
+          reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.4.8,800-171r3|03.04.06,800-171r3|03.04.08,800-53|CM-7,800-53|CM-7(1),800-53|CM-7(5),800-53|CM-10,800-53|SI-7,800-53|SI-7(1),800-53r5|CM-7,800-53r5|CM-7(1),800-53r5|CM-7(5),800-53r5|CM-10,800-53r5|SI-7,800-53r5|SI-7(1),CN-L3|7.1.3.5(b),CSCv7|2.7,CSCv7|2.9,CSCv8|2.5,CSCv8|2.7,CSF|DE.CM-3,CSF|PR.DS-6,CSF|PR.IP-1,CSF|PR.PT-3,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|ID.RA-09,CSF2.0|PR.DS-01,CSF2.0|PR.DS-02,CSF2.0|PR.DS-10,CSF2.0|PR.PS-01,CSF2.0|PR.PS-02,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(c)(1),HIPAA|164.312(c)(2),HIPAA|164.312(e)(2)(i),ISO-27001-2022|A.5.32,ISO-27001-2022|A.8.19,ISO/IEC-27001|A.12.5.1,ISO/IEC-27001|A.12.6.2,ITSG-33|CM-7,ITSG-33|CM-7(1),ITSG-33|SI-7,ITSG-33|SI-7a.,ITSG-33|SI-7(1),LEVEL|1M,NESA|T3.4.1,NESA|T7.3.2,NESA|T7.3.3,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,PCI-DSSv3.2.1|10.5.5,QCSC-v1|3.2,QCSC-v1|8.2.1,SWIFT-CSCv1|2.3,SWIFT-CSCv1|6.2,TBA-FIISB|44.2.2,TBA-FIISB|49.2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </else>
+    </if>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "6.1.1 Host CIM services, if enabled, must limit access"
+      info        : "The Common Information Model (CIM) system allows for hardware-level management from remote applications through standard APIs. Ensuring only minimal access necessary to these applications is imperative to prevent potential security compromises. A dedicated service account, specific to each CIM application, should be created to limit access and privileges.
+
+Restricting access to CIM services is essential to prevent unauthorized or over-privileged access, which could lead to potential security vulnerabilities. This practice adheres to the principle of least privilege, promoting a more secure environment.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "To limit CIM access, perform the following:
+
+ - Create a limited-privileged service account for CIM and other third-party applications.
+ - This account should access the system via vCenter.
+ - Give the account the CIM Interaction privilege only. This will enable the account to obtain a CIM ticket, which can then be used to perform both read and write CIM operations on the target host. If an account must connect to the host directly, this account must be granted the full \"Administrator\" role on the host. This is not recommended unless required by the monitoring software being used.
+
+Alternately, run the following PowerCLI command:
+
+# Create a new host user account -Host Local connection required-
+New-VMHostAccount -ID ServiceUser -Password <password> -UserAccount
+
+Impact:
+
+If improper access is granted to CIM-based hardware monitoring tools or other third-party applications, they may not function as expected or could be exploited to compromise the host's security."
+      reference   : "800-171|3.4.2,800-171|3.4.6,800-171|3.4.7,800-171r3|03.04.02,800-171r3|03.04.06,800-53|CM-6,800-53|CM-7,800-53r5|CM-6,800-53r5|CM-7,CSCv7|4.3,CSCv8|4.8,CSF|PR.IP-1,CSF|PR.PT-3,CSF2.0|DE.CM-09,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ISO-27001-2022|A.8.9,ITSG-33|CM-6,ITSG-33|CM-7,LEVEL|1M,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,SWIFT-CSCv1|2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli system account list"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "6.2.2 Host must ensure all datastores have unique names"
+      info        : "Ensuring unique naming for datastores is crucial to avoid potential errors that could affect the integrity and availability of data. A descriptive and unique name for each datastore facilitates better identification and management. Although there's no specific parameter to enforce this, manual or automated naming conventions should be adhered to.
+
+Unique and descriptive naming for datastores minimizes the risk of errors, improves manageability, and aids in quicker identification, especially in environments with numerous datastores. It's a proactive measure to maintain order and avoid issues that arise from the default names given to VMFS and vSAN datastores.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "Impact:
+
+Not adhering to a unique naming convention can lead to confusion, misconfiguration, or incorrect data access. While renaming datastores could have downstream effects on systems like automation, monitoring, and backup, the benefits of unique naming conventions outweigh the potential negatives."
+      reference   : "800-171|3.13.4,800-171r3|03.13.04,800-53|SC-4,800-53r5|SC-4,CSCv7|14.7,CSCv8|3.12,CSF2.0|PR.DS-01,CSF2.0|PR.DS-02,CSF2.0|PR.DS-10,CSF2.0|PR.IR-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|SC-4,ITSG-33|SC-4a.,LEVEL|1M"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli storage filesystem list"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <if>
+      <condition type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "SNMP service is enabled"
+          cmd         : "/bin/esxcli system snmp get"
+          expect      : "Enable: true"
+        </custom_item>
+      </condition>
+
+      <then>
+        <custom_item>
+          type        : CMD_EXEC
+          description : "6.4.1 Host SNMP services, if enabled, must limit access"
+          info        : "To manage hosts securely, if SNMP is enabled, access must be restricted. Preferably, SNMPv3 should be employed as it offers superior security through key authentication and encryption compared to SNMPv1 or SNMPv2. Configuring the destination for SNMP traps is essential for ensuring monitoring data is directed to a legitimate and secure host.
+
+Proper SNMP configuration is crucial to reduce the risk of misuse or compromise, especially if other management means are in place. SNMPv3's enhanced security features are pivotal for secure management and monitoring.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+          solution    : "To correct the SNMP configuration, perform the following from the ESXi Shell or vCLI:
+
+ - If SNMP is not needed, disable it by running:
+
+esxcli system snmp set --enable false
+
+ - If SNMP is needed, refer to the vSphere Monitoring and Performance guide, chapter 8 for steps to configure it.
+
+Additionally, the following PowerCLI command may be used to implement the configuration:
+
+# Update the host SNMP Configuration (single host connection required)
+Get-VmHostSNMP | Set-VMHostSNMP -Enabled:$true -ReadOnlyCommunity '<secret>'
+
+Notes:
+
+ - SNMP must be configured on each ESXi host
+ - SNMP settings can be configured using Host Profiles
+
+Impact:
+
+Improper SNMP configuration can redirect sensitive monitoring data to malicious hosts, risking exploitation and compromising host security."
+          reference   : "800-171|3.4.2,800-171|3.4.6,800-171|3.4.7,800-171|3.13.15,800-171r3|03.04.02,800-171r3|03.04.06,800-171r3|03.13.15,800-53|CM-6,800-53|CM-7,800-53|SC-23,800-53r5|CM-6,800-53r5|CM-7,800-53r5|SC-23,CSCv7|9.2,CSCv8|12.3,CSF|PR.IP-1,CSF|PR.PT-3,CSF2.0|DE.CM-09,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ISO-27001-2022|A.8.9,ITSG-33|CM-6,ITSG-33|CM-7,ITSG-33|SC-23,ITSG-33|SC-23a.,LEVEL|1M,NESA|T4.5.1,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.1,SWIFT-CSCv1|2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          cmd         : "/bin/esxcli system snmp get"
+          expect      : "^Manual Review Required$"
+          severity    : MEDIUM
+        </custom_item>
+      </then>
+
+      <else>
+        <report type:"PASSED">
+          description : "6.4.1 Host SNMP services, if enabled, must limit access"
+          info        : "To manage hosts securely, if SNMP is enabled, access must be restricted. Preferably, SNMPv3 should be employed as it offers superior security through key authentication and encryption compared to SNMPv1 or SNMPv2. Configuring the destination for SNMP traps is essential for ensuring monitoring data is directed to a legitimate and secure host.
+
+Proper SNMP configuration is crucial to reduce the risk of misuse or compromise, especially if other management means are in place. SNMPv3's enhanced security features are pivotal for secure management and monitoring."
+          solution    : "To correct the SNMP configuration, perform the following from the ESXi Shell or vCLI:
+
+ - If SNMP is not needed, disable it by running:
+
+esxcli system snmp set --enable false
+
+ - If SNMP is needed, refer to the vSphere Monitoring and Performance guide, chapter 8 for steps to configure it.
+
+Additionally, the following PowerCLI command may be used to implement the configuration:
+
+# Update the host SNMP Configuration (single host connection required)
+Get-VmHostSNMP | Set-VMHostSNMP -Enabled:$true -ReadOnlyCommunity '<secret>'
+
+Notes:
+
+ - SNMP must be configured on each ESXi host
+ - SNMP settings can be configured using Host Profiles
+
+Impact:
+
+Improper SNMP configuration can redirect sensitive monitoring data to malicious hosts, risking exploitation and compromising host security."
+          reference   : "800-171|3.4.2,800-171|3.4.6,800-171|3.4.7,800-171|3.13.15,800-171r3|03.04.02,800-171r3|03.04.06,800-171r3|03.13.15,800-53|CM-6,800-53|CM-7,800-53|SC-23,800-53r5|CM-6,800-53r5|CM-7,800-53r5|SC-23,CSCv7|9.2,CSCv8|12.3,CSF|PR.IP-1,CSF|PR.PT-3,CSF2.0|DE.CM-09,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ISO-27001-2022|A.8.9,ITSG-33|CM-6,ITSG-33|CM-7,ITSG-33|SC-23,ITSG-33|SC-23a.,LEVEL|1M,NESA|T4.5.1,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.1,SWIFT-CSCv1|2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+        </report>
+      </else>
+    </if>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.1 Host SSH daemon, if enabled, must use FIPS 140-2/140-3 validated ciphers"
+      info        : "For enhanced security, if the SSH daemon is enabled on the host, it must utilize FIPS 140-2/140-3 validated ciphers. This requirement ensures the encryption standards are robust and compliant with regulatory mandates.
+
+Employing FIPS validated ciphers is vital for maintaining a high level of security and integrity in communications. It aligns with industry best practices and regulatory compliance requirements, ensuring secure SSH connections.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "To remediate this recommendation, configure the SSH daemon to use only the approved FIPS-capable cipher list supported by the installed ESXi build. Validate access from approved administration clients before deploying broadly.
+
+Impact:
+
+There is no functional impact noted for this control; however, it significantly improves the security posture by enforcing the use of strong, validated encryption ciphers for SSH communications."
+      reference   : "800-171|3.1.13,800-171|3.5.2,800-171|3.13.8,800-171r3|03.05.07,800-171r3|03.05.12,800-171r3|03.13.08,800-53|AC-17(2),800-53|IA-5,800-53|IA-5(1),800-53|SC-8,800-53|SC-8(1),800-53r5|AC-17(2),800-53r5|IA-5,800-53r5|IA-5(1),800-53r5|SC-8,800-53r5|SC-8(1),CN-L3|7.1.2.7(g),CN-L3|7.1.3.1(d),CN-L3|8.1.2.2(a),CN-L3|8.1.2.2(b),CN-L3|8.1.4.1(c),CN-L3|8.1.4.7(a),CN-L3|8.1.4.8(a),CN-L3|8.2.4.5(c),CN-L3|8.2.4.5(d),CN-L3|8.5.2.2,CSCv7|11.4,CSCv8|3.10,CSF|PR.AC-1,CSF|PR.AC-3,CSF|PR.DS-2,CSF|PR.DS-5,CSF|PR.PT-4,CSF2.0|PR.AA-01,CSF2.0|PR.AA-03,CSF2.0|PR.AA-05,CSF2.0|PR.DS-02,GDPR|32.1.a,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(a)(1),HIPAA|164.312(a)(2)(i),HIPAA|164.312(d),HIPAA|164.312(e)(1),HIPAA|164.312(e)(2)(i),ISO-27001-2022|A.5.10,ISO-27001-2022|A.5.14,ISO-27001-2022|A.5.16,ISO-27001-2022|A.5.17,ISO-27001-2022|A.5.33,ISO-27001-2022|A.6.7,ISO-27001-2022|A.8.20,ISO/IEC-27001|A.6.2.2,ISO/IEC-27001|A.10.1.1,ISO/IEC-27001|A.13.2.3,ITSG-33|AC-17(2),ITSG-33|IA-5,ITSG-33|IA-5(1),ITSG-33|SC-8,ITSG-33|SC-8a.,ITSG-33|SC-8(1),LEVEL|1M,NESA|T4.3.1,NESA|T4.3.2,NESA|T4.5.1,NESA|T4.5.2,NESA|T5.2.3,NESA|T5.4.2,NESA|T7.3.3,NESA|T7.4.1,NIAv2|AM37,NIAv2|IE8,NIAv2|IE9,NIAv2|IE12,NIAv2|NS5d,NIAv2|NS6b,NIAv2|NS29,NIAv2|SS24,PCI-DSSv3.2.1|2.3,PCI-DSSv3.2.1|4.1,PCI-DSSv4.0|2.2.7,PCI-DSSv4.0|4.2.1,QCSC-v1|3.2,QCSC-v1|5.2.1,QCSC-v1|5.2.2,QCSC-v1|6.2,QCSC-v1|13.2,SWIFT-CSCv1|2.1,SWIFT-CSCv1|2.6,SWIFT-CSCv1|4.1,TBA-FIISB|29.1"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*Ciphers[\\s]+"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.10 Host SSH daemon, if enabled, must disable TCP forwarding"
+      info        : "Disabling TCP forwarding in the SSH daemon is a measure to prevent potential unauthorized tunneling and forwarding activities that could lead to data leaks or unauthorized data access. This measure adds a layer of security to the SSH service when enabled, making the system more resilient against certain types of network attacks.
+
+Preventing TCP forwarding aids in ensuring that the SSH daemon is not misused for unauthorized tunneling. This measure assists in maintaining a more secure and controlled network environment."
+      solution    : "To remediate this recommendation, set AllowTcpForwarding no, restart SSH if authorized, and test that TCP forwarding is blocked. Document any approved exception.
+
+Impact:
+
+No functional impact has been reported. This indicates that disabling TCP forwarding is a precautionary measure that does not interfere with the normal operation of the host."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*AllowTcpForwarding[\\s]"
+      expect      : "(?i)^[\\s]*AllowTcpForwarding[\\s]+no[\\s]*(#.*)?$"
+    </custom_item>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.11 Host SSH daemon, if enabled, must not permit tunnels"
+      info        : "Preventing tunnel creation in the SSH daemon is a security measure aimed at thwarting unauthorized network tunneling through the host. This control, when enforced, helps mitigate the risks associated with potential data exfiltration or unauthorized network access that could occur via SSH tunnels.
+
+By disallowing tunnel creation, organizations can ensure that the SSH daemon is not exploited for unauthorized tunneling activities, thus contributing to a more secure network posture."
+      solution    : "To remediate this recommendation, set PermitTunnel no, restart SSH if authorized, and verify SSH tunnel devices cannot be created.
+
+Impact:
+
+There is no reported functional impact associated with this security control, indicating that the prevention of SSH tunneling does not adversely affect the host's normal operational behavior."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*PermitTunnel[\\s]"
+      expect      : "(?i)^[\\s]*PermitTunnel[\\s]+no[\\s]*(#.*)?$"
+    </custom_item>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.12 Host SSH daemon, if enabled, must not permit user environment settings"
+      info        : "Preventing user environment settings in the SSH daemon ensures a consistent and controlled environment, reducing the attack surface by limiting the customization of the SSH environment by users.
+
+Disallowing user environment settings within the SSH daemon reduces the potential for malicious or inadvertent misconfiguration, thus enhancing the security posture."
+      solution    : "To remediate this recommendation, set PermitUserEnvironment no, restart SSH if authorized, and verify users cannot alter the SSH environment through per-user environment settings.
+
+Impact:
+
+There is no functional impact noted, indicating that restricting user environment settings does not adversely affect the operational aspects of the host."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*PermitUserEnvironment[\\s]"
+      expect      : "(?i)^[\\s]*PermitUserEnvironment[\\s]+no[\\s]*$"
+    </custom_item>
+
+    <custom_item>
+      type        : CMD_EXEC
+      description : "6.5.2 Host SSH daemon, if enabled, must use FIPS 140-2/140-3 validated cryptographic modules"
+      info        : "When enabled, the SSH daemon on the host should employ FIPS 140-2/140-3 validated cryptographic modules provided by OpenSSH. Although these modules are enabled by default, they can be deactivated for backward compatibility, thus auditing and ensuring the correct setting is crucial for maintaining security standards.
+
+Utilizing FIPS validated cryptographic modules ensures adherence to recognized security standards, which is essential for protecting data during SSH sessions. This aligns with industry best practices and compliance requirements, promoting a secure operating environment.
+
+NOTE: Nessus has provided the target output to assist in reviewing the benchmark to ensure target compliance."
+      solution    : "To remediate this recommendation, remove unsupported SSH/cryptographic binaries and restore the signed ESXi components from an approved image/profile. Keep ESXi patched so the validated cryptographic modules remain current.
+
+Impact:
+
+There's no functional impact associated with this control. It significantly enhances the security posture by enforcing the use of validated cryptographic modules, minimizing the risks associated with SSH communications."
+      reference   : "800-171|3.1.13,800-171|3.5.2,800-171|3.13.8,800-171r3|03.05.07,800-171r3|03.05.12,800-171r3|03.13.08,800-53|AC-17(2),800-53|IA-5,800-53|IA-5(1),800-53|SC-8,800-53|SC-8(1),800-53r5|AC-17(2),800-53r5|IA-5,800-53r5|IA-5(1),800-53r5|SC-8,800-53r5|SC-8(1),CN-L3|7.1.2.7(g),CN-L3|7.1.3.1(d),CN-L3|8.1.2.2(a),CN-L3|8.1.2.2(b),CN-L3|8.1.4.1(c),CN-L3|8.1.4.7(a),CN-L3|8.1.4.8(a),CN-L3|8.2.4.5(c),CN-L3|8.2.4.5(d),CN-L3|8.5.2.2,CSCv7|11.4,CSCv7|14.4,CSCv8|3.10,CSF|PR.AC-1,CSF|PR.AC-3,CSF|PR.DS-2,CSF|PR.DS-5,CSF|PR.PT-4,CSF2.0|PR.AA-01,CSF2.0|PR.AA-03,CSF2.0|PR.AA-05,CSF2.0|PR.DS-02,GDPR|32.1.a,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(a)(1),HIPAA|164.312(a)(2)(i),HIPAA|164.312(d),HIPAA|164.312(e)(1),HIPAA|164.312(e)(2)(i),ISO-27001-2022|A.5.10,ISO-27001-2022|A.5.14,ISO-27001-2022|A.5.16,ISO-27001-2022|A.5.17,ISO-27001-2022|A.5.33,ISO-27001-2022|A.6.7,ISO-27001-2022|A.8.20,ISO/IEC-27001|A.6.2.2,ISO/IEC-27001|A.10.1.1,ISO/IEC-27001|A.13.2.3,ITSG-33|AC-17(2),ITSG-33|IA-5,ITSG-33|IA-5(1),ITSG-33|SC-8,ITSG-33|SC-8a.,ITSG-33|SC-8(1),LEVEL|1M,NESA|T4.3.1,NESA|T4.3.2,NESA|T4.5.1,NESA|T4.5.2,NESA|T5.2.3,NESA|T5.4.2,NESA|T7.3.3,NESA|T7.4.1,NIAv2|AM37,NIAv2|IE8,NIAv2|IE9,NIAv2|IE12,NIAv2|NS5d,NIAv2|NS6b,NIAv2|NS29,NIAv2|SS24,PCI-DSSv3.2.1|2.3,PCI-DSSv3.2.1|4.1,PCI-DSSv4.0|2.2.7,PCI-DSSv4.0|4.2.1,QCSC-v1|3.2,QCSC-v1|5.2.1,QCSC-v1|5.2.2,QCSC-v1|6.2,QCSC-v1|13.2,SWIFT-CSCv1|2.1,SWIFT-CSCv1|2.6,SWIFT-CSCv1|4.1,TBA-FIISB|29.1"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      cmd         : "/bin/esxcli software vib list"
+      expect      : "^Manual Review Required$"
+      severity    : MEDIUM
+    </custom_item>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.3 Host SSH daemon, if enabled, must not allow use of gateway ports"
+      info        : "When enabled, the SSH daemon on the host should have the gateway ports feature disabled to prevent remote hosts from forwarding connections. This is a hardening measure to ensure that the SSH service is securely configured against potential forwarding misuses.
+
+Disabling gateway ports is a preventative measure to avoid unauthorized forwarding by remote hosts, thus enhancing the security posture of the system. It is a prudent step in minimizing the attack surface associated with SSH service."
+      solution    : "To remediate this recommendation, set GatewayPorts no in the supported ESXi SSH configuration. Restart SSH only during an authorized maintenance/admin window and verify the effective setting.
+
+Impact:
+
+There are no noted functional impacts associated with this control. It is a proactive security measure designed to prevent potential misuse of SSH service forwarding capabilities, without affecting the normal operation of the host."
+      reference   : "800-171|3.4.2,800-171|3.4.6,800-171|3.4.7,800-171r3|03.04.02,800-171r3|03.04.06,800-53|CM-6,800-53|CM-7,800-53r5|CM-6,800-53r5|CM-7,CSCv7|9.2,CSCv7|12.4,CSCv8|4.8,CSF|PR.IP-1,CSF|PR.PT-3,CSF2.0|DE.CM-09,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ISO-27001-2022|A.8.9,ITSG-33|CM-6,ITSG-33|CM-7,LEVEL|1M,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,SWIFT-CSCv1|2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*GatewayPorts[\\s]"
+      expect      : "(?i)^[\\s]*GatewayPorts[\\s]+no[\\s]*(#.*)?$"
+    </custom_item>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.4 Host SSH daemon, if enabled, must not allow host-based authentication"
+      info        : "Ensuring the SSH daemon on the host disallows host-based authentication is a crucial step towards hardening system services. This prevents a host from authenticating on behalf of the users, thereby enforcing individual accountability and minimizing the risk of unauthorized access.
+
+Disallowing host-based authentication enforces a more secure user authentication mechanism, promoting individual accountability. It minimizes the risk associated with trust relationships among hosts, thereby enhancing the overall security of the system."
+      solution    : "To remediate this recommendation, set HostbasedAuthentication no, restart SSH if it is authorized to run, and verify host-based authentication is rejected.
+
+Impact:
+
+No functional impact is associated with this control. It solely acts to enhance security by enforcing stricter authentication practices, without hindering system operations."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*HostbasedAuthentication[\\s]"
+      expect      : "(?i)^[\\s]*HostbasedAuthentication[\\s]+no[\\s]*(#.*)?$"
+    </custom_item>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.5 Host SSH daemon, if enabled, must set a timeout count on idle sessions"
+      info        : "Setting a timeout count on idle SSH sessions ensures that inactive sessions are automatically disconnected after a specified period. This period is calculated by multiplying the timeout count with the idle timeout interval. Automatic disconnection of idle sessions reduces the window of opportunity for unauthorized access.
+
+Implementing a timeout count on idle sessions promotes better security hygiene by minimizing the exposure of open SSH sessions. It adds a layer of protection against potential unauthorized access arising from forgotten or unattended sessions."
+      solution    : "To remediate this recommendation, set ClientAliveCountMax to the approved value, then restart SSH if enabled and test that inactive sessions are closed after the configured interval/count.
+
+Impact:
+
+There's no functional impact reported with this control. It's a preventive measure aimed at enhancing the security posture by mitigating the risks associated with lingering idle sessions."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*ClientAliveCountMax[\\s]"
+      expect      : "(?i)^[\\s]*ClientAliveCountMax[\\s]+@SSH_CLIENT_ALIVE_COUNT_MAX@[\\s]*(#.*)?$"
+    </custom_item>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.6 Host SSH daemon, if enabled, must set a timeout interval on idle sessions"
+      info        : "Implementing a timeout interval on idle SSH sessions ensures that any inactive session gets disconnected after a certain period, improving the security posture. The total timeout duration is calculated by multiplying the timeout count by the idle timeout interval.
+
+Enforcing a timeout interval on idle SSH sessions minimizes the risk of unauthorized access through forgotten or unattended sessions, thereby hardening the system services as per security best practices."
+      solution    : "To remediate this recommendation, set ClientAliveInterval to the approved number of seconds. Restart SSH if enabled and validate timeout behavior together with ClientAliveCountMax.
+
+Impact:
+
+No functional impact is reported with this control. The measure is preventive, aiming to mitigate risks associated with open, idle SSH sessions."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*ClientAliveInterval[\\s]"
+      expect      : "(?i)^[\\s]*ClientAliveInterval[\\s]+@SSH_CLIENT_ALIVE_INTERVAL@[\\s]*(#.*)?$"
+    </custom_item>
+
+    <if>
+      <condition auto:"FAILED" type:"AND">
+        <custom_item>
+          type        : FILE_CONTENT_CHECK
+          description : "SSH Banner directive references the site banner file"
+          file        : "/etc/ssh/sshd_config"
+          regex       : "(?i)^[\\s]*Banner[\\s]"
+          expect      : "(?i)^[\\s]*Banner[\\s]+@SSH_BANNER_FILE@[\\s]*(#.*)?$"
+        </custom_item>
+
+        <custom_item>
+          type         : BANNER_CHECK
+          description  : "Ensure banner argument matches site policy"
+          file         : "@SSH_BANNER_FILE@"
+          content      : "@BANNER_TEXT@"
+          is_substring : YES
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "6.5.7 Host SSH daemon, if enabled, must display the system login banner before granting access"
+          info        : "Implementing a system login banner before granting SSH access ensures that crucial information or notices are conveyed to users attempting to login. The banner text is set through the host's Config.Etc.Issue advanced parameter.
+
+Displaying a system login banner helps in providing legal notices or other critical information to users, ensuring they are informed before gaining access, which is a step towards hardening and securing system services."
+          solution    : "To remediate this recommendation, configure the approved SSH banner file and Banner directive. Restart SSH only if enabled/authorized and confirm the banner appears before authentication.
+
+Impact:
+
+There is no functional impact reported with the enforcement of this control. It primarily serves to inform users or provide legal disclaimers, aiding in legal and regulatory compliance."
+          reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.8 Host SSH daemon, if enabled, must ignore .rhosts files"
+      info        : "Ignoring .rhosts files is crucial in hardening the SSH daemon on the host, ensuring that trust relationships are explicitly defined and not implicitly accepted, thereby reducing the attack surface.
+
+Ignoring .rhosts files removes potential security risks associated with outdated or overly permissive trust relationships, which is a step towards a hardened and more secure system service configuration."
+      solution    : "To remediate this recommendation, set IgnoreRhosts yes, restart SSH if authorized, and verify . rhosts -based trust is ignored.
+
+Impact:
+
+There are no reported functional impacts associated with ignoring .rhosts files; however, this practice enhances the security posture by mitigating risks associated with unauthorized access."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*IgnoreRhosts[\\s]"
+      expect      : "(?i)^[\\s]*IgnoreRhosts[\\s]+yes[\\s]*(#.*)?$"
+    </custom_item>
+
+    <custom_item>
+      type        : FILE_CONTENT_CHECK
+      description : "6.5.9 Host SSH daemon, if enabled, must disable stream local forwarding"
+      info        : "Disabling stream local forwarding on the SSH daemon ensures that no Unix domain sockets are forwarded, thus enforcing a security boundary. This measure aids in maintaining the integrity and confidentiality of the system.
+
+Disabling stream local forwarding helps in preventing potential misuse of Unix domain sockets which can be a vector for certain types of attacks or data leaks."
+      solution    : "To remediate this recommendation, set AllowStreamLocalForwarding no, restart SSH if authorized, and verify stream-local forwarding cannot be established.
+
+Impact:
+
+There is no functional impact reported, indicating that disabling stream local forwarding is a safe measure towards enhancing system security without affecting operations."
+      reference   : "800-171|3.4.6,800-171|3.4.7,800-171|3.7.5,800-171r3|03.04.06,800-171r3|03.07.05,800-53|CM-7,800-53|MA-4,800-53r5|CM-7,800-53r5|MA-4,CSCv7|5.1,CSCv8|4.6,CSF|PR.IP-1,CSF|PR.MA-2,CSF|PR.PT-3,CSF2.0|PR.PS-01,GDPR|32.1.b,HIPAA|164.306(a)(1),ITSG-33|CM-7,ITSG-33|MA-4,LEVEL|1M,NESA|T2.3.4,NESA|T5.4.4,NIAv2|SS15a,PCI-DSSv3.2.1|2.2.2,QCSC-v1|5.2.2,SWIFT-CSCv1|2.3,TBA-FIISB|45.2.3"
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      file        : "/etc/ssh/sshd_config"
+      regex       : "(?i)^[\\s]*AllowStreamLocalForwarding[\\s]"
+      expect      : "(?i)^[\\s]*AllowStreamLocalForwarding[\\s]+no[\\s]*(#.*)?$"
+    </custom_item>
+
+    <if>
+      <condition auto:"FAILED" type:"AND">
+        <custom_item>
+          type        : CMD_EXEC
+          description : "No virtual machine has diagnostic logging explicitly disabled"
+          cmd         : "/bin/find /vmfs/volumes -name '*.vmx' -exec /bin/grep -iH '^logging[[:blank:]]*=[[:blank:]]*\"FALSE\"' {} + | /bin/awk '{print} END {if (NR==0) print \"pass\"}'"
+          expect      : "^pass$"
+        </custom_item>
+
+        <custom_item>
+          type        : CMD_EXEC
+          description : "Every virtual machine has a vmware.log file in its datastore directory"
+          cmd         : "/bin/find /vmfs/volumes -name '*.vmx' -exec /bin/sh -c 'for f in \"$@\"; do d=${f%/*}; [ -f \"$d/vmware.log\" ] || echo \"$d : vmware.log NOT found\"; done' _ {} + | /bin/awk '{print} END {if (NR==0) print \"pass\"}'"
+          expect      : "^pass$"
+        </custom_item>
+      </condition>
+
+      <then>
+        <report type:"PASSED">
+          description : "7.25 Virtual machines must enable diagnostic logging"
+          info        : "Enabling diagnostic logging on virtual machines facilitates forensic analysis and troubleshooting by collecting necessary operational data. The parameter governing this behavior is Enable Logging with a recommended setting of TRUE.
+
+Diagnostic logging is crucial for identifying and analyzing issues that may arise within a virtual machine environment. It supports timely resolution of problems, thus maintaining system integrity and operational efficiency."
+          solution    : "To remediate this recommendation, set logging to TRUE for affected VMs using Set-AdvancedSetting or create the setting with New-AdvancedSetting if necessary. Verify new VM log entries are generated.
+
+Impact:
+
+There is no negative functional impact identified for enabling diagnostic logging. This control significantly aids in issue resolution, enhancing overall system reliability and performance."
+          reference   : "800-171|3.3.1,800-171|3.3.2,800-171|3.3.6,800-171r3|03.03.02a.,800-171r3|03.03.02b.,800-171r3|03.03.03,800-171r3|03.03.06a.,800-53|AU-3,800-53|AU-3(1),800-53|AU-7,800-53|AU-12,800-53r5|AU-3,800-53r5|AU-3(1),800-53r5|AU-7,800-53r5|AU-12,CN-L3|7.1.2.3(a),CN-L3|7.1.2.3(b),CN-L3|7.1.2.3(c),CN-L3|7.1.3.3(a),CN-L3|7.1.3.3(b),CN-L3|8.1.4.3(b),CSCv7|6.3,CSCv8|8.5,CSF|DE.CM-1,CSF|DE.CM-3,CSF|DE.CM-7,CSF|PR.PT-1,CSF|RS.AN-3,CSF2.0|DE.CM-01,CSF2.0|DE.CM-03,CSF2.0|DE.CM-09,CSF2.0|PR.PS-04,CSF2.0|RS.AN-03,CSF2.0|RS.AN-06,CSF2.0|RS.AN-07,GDPR|32.1.b,HIPAA|164.306(a)(1),HIPAA|164.312(b),ISO-27001-2022|A.5.28,ISO-27001-2022|A.8.15,ITSG-33|AU-3,ITSG-33|AU-3(1),ITSG-33|AU-7,ITSG-33|AU-12,LEVEL|1M,NESA|T3.6.2,NIAv2|AM34a,NIAv2|AM34b,NIAv2|AM34c,NIAv2|AM34d,NIAv2|AM34e,NIAv2|AM34f,NIAv2|AM34g,PCI-DSSv3.2.1|10.1,PCI-DSSv3.2.1|10.3,PCI-DSSv3.2.1|10.3.1,PCI-DSSv3.2.1|10.3.2,PCI-DSSv3.2.1|10.3.3,PCI-DSSv3.2.1|10.3.4,PCI-DSSv3.2.1|10.3.5,PCI-DSSv3.2.1|10.3.6,PCI-DSSv4.0|10.2.2,QCSC-v1|3.2,QCSC-v1|6.2,QCSC-v1|8.2.1,QCSC-v1|10.2.1,QCSC-v1|11.2,QCSC-v1|13.2,SWIFT-CSCv1|6.4"
+          see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+          show_output : YES
+        </report>
+      </then>
+    </if>
+  </then>
+
+  <else>
+    <report type:"WARNING">
+      description : "CIS_VMware_ESXi_9.0_v1.0.0_L1_Unix.audit from CIS VMware ESXi 9.0 v1.0.0"
+      info        : "NOTE: Nessus has not identified that the chosen audit applies to the target device."
+      see_also    : "https://workbench.cisecurity.org/benchmarks/28124"
+      show_output : YES
+    </report>
+  </else>
+</if>
+
+</check_type>

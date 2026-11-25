@@ -1,0 +1,13 @@
+
+{
+  "id": "vendor.example.platform",
+  "version": "0.1.0",
+  "kind": "adapter",
+  "platform": "example_platform",
+  "requires": ["transport.ssh"],
+  "provides": ["config.get", "device.get_version"],
+  "compatibility": {
+    "software": ">=1.0,<2.0"
+  },
+  "entrypoint": "example_plugin.adapter:ExampleAdapter"
+}

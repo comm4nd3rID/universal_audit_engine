@@ -1,0 +1,10 @@
+
+include README.md
+include requirements.txt
+recursive-include src/universal_audit/reporting *.json
+recursive-include docs *.md
+recursive-include examples *.json
+
+recursive-include plugins *.json
+recursive-include audit_profiles *.audit *.md
+recursive-include tests *.py *.json

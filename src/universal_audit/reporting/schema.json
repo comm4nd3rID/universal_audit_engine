@@ -1,0 +1,553 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/universal-audit/report.schema.json",
+  "title": "Universal Audit Assessment Report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "assessment",
+    "device",
+    "audit",
+    "summary",
+    "checks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "assessment": {
+      "type": "object",
+      "required": [
+        "assessment_id",
+        "started_at",
+        "overall_status"
+      ],
+      "properties": {
+        "assessment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "started_at": {
+          "type": "string"
+        },
+        "completed_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "overall_status": {
+          "enum": [
+            "COMPLETED",
+            "COMPLETED_WITH_UNRESOLVED",
+            "INTERRUPTED",
+            "FAILED"
+          ]
+        },
+        "aborted": {
+          "type": "boolean"
+        },
+        "fatal_error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/error"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "device": {
+      "type": "object",
+      "required": [
+        "ip_address",
+        "platform"
+      ],
+      "properties": {
+        "ip_address": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vendor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "platform": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "software_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "audit": {
+      "type": "object",
+      "required": [
+        "file_name",
+        "sha256",
+        "benchmark",
+        "profile"
+      ],
+      "properties": {
+        "file_name": {
+          "type": "string"
+        },
+        "source_path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "syntax_family": {
+          "type": "string"
+        },
+        "benchmark": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "benchmark_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "benchmark_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "profile": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "display_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "link": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "total_checks",
+        "passed",
+        "failed",
+        "not_applicable",
+        "manual_review",
+        "errors",
+        "unsupported",
+        "unknown",
+        "skipped"
+      ],
+      "properties": {
+        "total_checks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "not_applicable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "manual_review": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "errors": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unsupported": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unknown": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skipped": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pending": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "resolved_variables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "report_directives": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "condition_evaluations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "execution_log": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check_id",
+          "description",
+          "canonical_check_type",
+          "status",
+          "execution_status",
+          "result_source",
+          "evidence",
+          "attempts",
+          "raw_definition",
+          "source_location"
+        ],
+        "properties": {
+          "check_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          },
+          "original_check_type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "canonical_check_type": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "N/A",
+              "PENDING",
+              "MANUAL_REVIEW",
+              "ERROR",
+              "UNSUPPORTED",
+              "UNKNOWN",
+              "SKIPPED"
+            ]
+          },
+          "execution_status": {
+            "enum": [
+              "NOT_STARTED",
+              "RUNNING",
+              "COMPLETED",
+              "FAILED",
+              "MANUAL",
+              "SKIPPED",
+              "BLOCKED"
+            ]
+          },
+          "result_source": {
+            "enum": [
+              "AUTOMATIC",
+              "MANUAL",
+              "NONE"
+            ]
+          },
+          "expected": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "actual": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/evidence"
+            }
+          },
+          "attempts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/attempt"
+            }
+          },
+          "operator_decision": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/operator_decision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/error"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "raw_definition": {
+            "type": "object"
+          },
+          "source_location": {
+            "$ref": "#/$defs/source_location"
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "source",
+        "command_or_query",
+        "raw_output",
+        "collected_at",
+        "exit_code",
+        "stderr",
+        "redactions",
+        "truncated"
+      ],
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "command_or_query": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_output": {
+          "type": "string"
+        },
+        "normalized_value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "collected_at": {
+          "type": "string"
+        },
+        "exit_code": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "stderr": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "redactions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "truncated": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "attempt": {
+      "type": "object",
+      "required": [
+        "attempt_number",
+        "started_at",
+        "ended_at",
+        "execution_status",
+        "command_or_query",
+        "error"
+      ],
+      "properties": {
+        "attempt_number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "started_at": {
+          "type": "string"
+        },
+        "ended_at": {
+          "type": "string"
+        },
+        "execution_status": {
+          "enum": [
+            "NOT_STARTED",
+            "RUNNING",
+            "COMPLETED",
+            "FAILED",
+            "MANUAL",
+            "SKIPPED",
+            "BLOCKED"
+          ]
+        },
+        "command_or_query": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/error"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "operator_decision": {
+      "type": "object",
+      "required": [
+        "decision",
+        "justification",
+        "decided_at"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "N/A",
+            "SKIP",
+            "ABORT"
+          ]
+        },
+        "justification": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decided_at": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "source_location": {
+      "type": "object",
+      "properties": {
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,46 @@
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "universal-audit-engine"
+version = "1.0.0"
+description = "Component-based, read-only CIS audit assessment engine for Cisco IOS XE, FortiGate and VMware ESXi"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Universal Audit Engine Project" }]
+dependencies = [
+  "paramiko>=3.4,<4",
+  "jsonschema>=4.21,<5"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9", "hypothesis>=6.98,<7", "build>=1.2,<2"]
+
+[project.scripts]
+uaudit = "universal_audit.cli.app:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+universal_audit = ["reporting/schema.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
